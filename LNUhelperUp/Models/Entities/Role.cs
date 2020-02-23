@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace LNUhelperUp.Models
 {
-    public class Faculty
+    public class Role
     {
-        [Key]
         public int Id { get; set; }
         public string Name { get; set; }
+
         public ICollection<User> Users { get; set; }
 
-        public Faculty()
+        public Role()
         {
             Users = new Collection<User>();
         }

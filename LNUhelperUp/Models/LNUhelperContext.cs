@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LNUhelperUp.Models.Configurations;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +16,24 @@ namespace LNUhelperUp.Models
         public DbSet<Announcement> Announcements { get; set; }
         public DbSet<Event> Events { get; set; }
 
-        public LNUhelperContext(DbContextOptions options): base(options)
+        public LNUhelperContext(DbContextOptions options) : base(options)
         {
 
         }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.ApplyConfiguration(new UserConfiguration());
+            builder.ApplyConfiguration(new AnnouncementConfiguration());
+            builder.ApplyConfiguration(new EventConfiguration());
+            builder.ApplyConfiguration(new FacultyConfiguration());
+            builder.ApplyConfiguration(new RoleConfiguration());
+            builder.ApplyConfiguration(new CommentConfiguration());
+
+
+            base.OnModelCreating(builder);
+        }
     }
+
 }
+

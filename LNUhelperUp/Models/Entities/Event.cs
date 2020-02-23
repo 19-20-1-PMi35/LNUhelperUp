@@ -7,19 +7,20 @@ using System.Threading.Tasks;
 
 namespace LNUhelperUp.Models
 {
-    public class User
+    public class Event
     {
-        [Key]
         public int Id { get; set; }
-        public string Nickname { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
-        [ForeignKey("Role")]
-        public int RoleId { get; set; }
-        public Role Role { get; set; }
-        [ForeignKey("Faculty")]
+        public string Text { get; set; }
+        public DateTime CreateAt { get; set; }
+        public DateTime Time { get; set; }
+        public double Price { get; set; }
+        public string Place { get; set; }
+
+        public int UserId { get; set; }
+        public User User { get; set; }
         public int FacultyId { get; set; }
         public Faculty Faculty { get; set; }
 
+        public bool IsOfficial { get; set; }
     }
 }

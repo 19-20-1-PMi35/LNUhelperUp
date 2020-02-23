@@ -8,24 +8,29 @@ using System.Threading.Tasks;
 
 namespace LNUhelperUp.Models
 {
-    public class Announcement
+    public class User
     {
-        [Key]
         public int Id { get; set; }
-        public string Text { get; set; }
-        public DateTime CreateAt { get; set; }
-        [ForeignKey("User")]
-        public int UserId { get; set; }
-        public User User { get; set; }
-        [ForeignKey("Faculty")]
+        public string Nickname { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
+
+        public int RoleId { get; set; }
+        public Role Role { get; set; }
         public int FacultyId { get; set; }
         public Faculty Faculty { get; set; }
-        public ICollection<Comment> Comments { get; set; }
 
-        public Announcement()
+        public ICollection<Comment> Comments { get; set; }
+        public ICollection<Event> Events { get; set; }
+        public ICollection<Announcement> Announcements { get; set; }
+
+        public User()
         {
             Comments = new Collection<Comment>();
+            Events = new Collection<Event>();
+            Announcements = new Collection<Announcement>();
         }
+
 
     }
 }
