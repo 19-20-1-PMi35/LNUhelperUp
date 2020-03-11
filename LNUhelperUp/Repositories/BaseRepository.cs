@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace LNUhelperUp.Repositories
@@ -46,6 +47,41 @@ namespace LNUhelperUp.Repositories
         {
             _entities.RemoveRange(entities);
         }
-        
+        public virtual async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> expression)
+        {
+            return await _entities.Where(expression).ToListAsync();
+        }
+
+        public async Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> expression)
+        {
+            return await _entities.SingleOrDefaultAsync(expression);
+        }
+
+        public async Task<TEntity> WhereMultipleIncludeAsync(Expression<Func<TEntity, bool>> expression, params Expression<Func<TEntity, object>>[] includes)
+        {
+            return await _entities.IncludeMultiple(expression, includes);
+        }
+
+        public IQueryable<TEntity> WhereMultipleInclude(Expression<Func<TEntity, bool>> expression, params Expression<Func<TEntity, object>>[] includes)
+        {
+            return _entities.WhereIncludeMultiple(expression, includes);
+        }
+
+        public IQueryable<TEntity> GetFiltered(Expression<Func<TEntity, bool>> expressionForWhere,
+            Expression<Func<TEntity, object>> orderingExpression,
+            bool isAsc,
+            params Expression<Func<TEntity, object>>[] includes)
+        {
+            if (isAsc)
+            {
+                return _entities
+              .WhereIncludeMultiple(expressionForWhere, includes)
+              .OrderBy(orderingExpression);
+            }
+
+            return _entities
+             .WhereIncludeMultiple(expressionForWhere, includes)
+             .OrderByDescending(orderingExpression);
+        }
     }
 }
