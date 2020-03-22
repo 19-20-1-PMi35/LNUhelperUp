@@ -19,6 +19,14 @@ namespace LNUhelperUp.Models.Configurations
 				.WithOne(c => c.Role)
 				.HasForeignKey(c => c.RoleId)
 				.OnDelete(DeleteBehavior.Cascade);
-		}
-	}
+            builder.HasData(
+                new Role[]
+                {
+                    new Role {Id = 1, Name = "Admin"},
+                    new Role {Id = 2, Name = "User"},
+                }
+                );
+
+        }
+    }
 }
