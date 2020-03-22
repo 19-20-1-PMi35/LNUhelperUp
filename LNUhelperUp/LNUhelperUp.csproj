@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+<<<<<<< HEAD
   <ItemGroup>
     <Compile Remove="Migrations\20200223131721_initial.cs" />
     <Compile Remove="Migrations\20200223131721_initial.Designer.cs" />
@@ -36,6 +37,8 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
   </ItemGroup>
 
+=======
+>>>>>>> 234e584263e2d0fc738325e2c76da044ff01a223
 
 
 </Project>
