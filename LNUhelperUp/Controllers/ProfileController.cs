@@ -6,29 +6,24 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LNUhelperUp.Controllers
 {
-    public class AuthController : Controller
+    public class ProfileController : Controller
     {
-        public IActionResult Login()
+        public IActionResult ShowProfile()
         {
             return View();
         }
 
-        public IActionResult SignUp()
+        public IActionResult MyEvents()
         {
             return View();
         }
 
-        public IActionResult AddPhoto()
+        public IActionResult MyDiscussions()
         {
             return View();
         }
 
-        public IActionResult EndRegistration()
-        {
-            return View();
-        }
-
-        public IActionResult Enter()
+        public IActionResult EditProfile()
         {
             return View();
         }
