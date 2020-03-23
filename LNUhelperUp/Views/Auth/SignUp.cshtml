@@ -1,7 +1,17 @@
-﻿
+﻿@using Microsoft.AspNetCore.Html
 @{
-    ViewData["Title"] = "SignUp";
+    ViewData["Title"] = "Реєстрація";
 }
 
-<h1>SignUp</h1>
+<h1 style="margin-top:20px">@ViewData["Title"]</h1>
+@using (Html.BeginForm("sign_up", "account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    
+    <p>Введіть e-mail:  @Html.TextBox("e-mail", "")</p>    
+    <p>Введіть ім'я:    @Html.TextBox("nickname", "")</p>
+    <p>Введіть пароль:   <input id="UserPassword" name="UserPassword" type="password" value="" /></p>
+    <button asp-controller="Home" asp-action="Index">Додати фото</button>
 
+    <hr />
+    <p><input type="submit" value="Зареєструватися" /></p>
+}
