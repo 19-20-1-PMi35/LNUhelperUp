@@ -8,7 +8,16 @@ namespace LNUhelperUp.Controllers
 {
     public class ForumController : Controller
     {
-        public IActionResult Index()
+        public IActionResult ShowQuestions()
+        {
+            return View();
+        }
+
+        public IActionResult ShowCurrentQuestion()
+        {
+            return View();
+        }
+        public IActionResult AddQuestion()
         {
             return View();
         }
