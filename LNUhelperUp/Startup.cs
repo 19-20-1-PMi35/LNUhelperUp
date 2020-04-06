@@ -58,7 +58,7 @@ namespace LNUhelperUp
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Auth}/{action=Login}/{id?}");
+                    pattern: "{controller=Faculty}/{action=ShowFaculties}/{id?}");
             });
         }
     }

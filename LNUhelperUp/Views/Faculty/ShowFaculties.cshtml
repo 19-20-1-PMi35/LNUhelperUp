@@ -1,7 +1,27 @@
-﻿
+﻿@model IEnumerable<LNUhelperUp.Models.Faculty>
 @{
     ViewData["Title"] = "ShowFaculties";
 }
+<html>
+    <head>
+        <h1>ShowFaculties</h1>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <td>Name</td>
+                <td></td>
+            </tr>
+            @foreach(var fac in Model)
+            {
+                <tr>
+                    <td>@fac.Name</td>
+                    <td><a href="~/Faculty/Add">Enter</a></td>
+                </tr>
+            }
+        </table>
+    </body>
+</html>
 
-<h1>ShowFaculties</h1>
+
 
