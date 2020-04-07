@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using LNUhelperUp.Models;
 using LNUhelperUp.Services.IServices;
 using Microsoft.AspNetCore.Hosting;
@@ -14,7 +15,7 @@ namespace LNUhelperUp.Controllers
     [Route("api/[controller]")]
     public class FacultyController : Controller
     {
-
+        private readonly IMapper _mapper;
         private readonly ILogger<FacultyController> _logger;
         private readonly IFacultyService _facultyService;
         private readonly IHostingEnvironment _hostingEnvironment;
@@ -26,37 +27,76 @@ namespace LNUhelperUp.Controllers
             _hostingEnvironment = hostingEnvironment;
         }
 
-        public IActionResult ShowFaculties()
-        {
-            return View(_context.Faculties.ToList());
-        }
-
-        [HttpGet]
-        public IActionResult Add(int? id)
-        {
-            if (id == null)
-            {
-                return RedirectToAction("ShowFaculties");
-            }
-            ViewBag.FacultyId = id;
-            return View();
-        }
-
-        [HttpPost]
-        public string Add(Faculty faculty)
-        {
-            _context.Faculties.Add(faculty);
-            _context.SaveChanges();
-
-            return "You just add " + faculty.Name;
-        }
-
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFaculty(int id)
         {
-            await faculty = await _context.Faculties.Find
+            var facultyDb = await _facultyService.GetFacultyAsync(id);
 
-            return RedirectToAction("ShowFaculties");
+            if(facultyDb == null)
+            {
+                return NotFound();
+            }
+
+            await _facultyService.DeleteFacultyAsync(facultyDb);
+
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateFaculty(Faculty faculty)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var facultyUpdated = await _facultyService.UpdateFacultyAsync(faculty);
+
+            if (facultyUpdated == null)
+            {
+                return BadRequest(new { message = "Faculty id is incorrect" });
+            }
+
+            return Ok(facultyUpdated);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllFaculty()
+        {
+            var faculties = await _facultyService.GetAllFacultyAsync();
+
+            if (faculties == null)
+            {
+                return NoContent();
+            }
+
+            return Ok(faculties);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetFaculty(int id)
+        {
+            var faculty = await _facultyService.GetFacultyAsync(id);
+
+            if(faculty == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(faculty);
+        }
+
+        [HttpPost("{id}")]
+        public async Task<IActionResult> CreateFaculty(Faculty faculty)
+        {
+            var facultyNew = await _facultyService.CreateFacultyAsync(faculty);
+
+            if(facultyNew == null)
+            {
+                return BadRequest(new { message = "Faculty is already exist" });
+            }
+
+            return Ok();
         }
     }
 }
