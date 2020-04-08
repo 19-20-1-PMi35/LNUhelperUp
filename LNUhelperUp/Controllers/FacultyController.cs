@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using LNUhelperUp.Models;
 using LNUhelperUp.Services.IServices;
 using Microsoft.AspNetCore.Hosting;
@@ -15,10 +14,10 @@ namespace LNUhelperUp.Controllers
     [Route("api/[controller]")]
     public class FacultyController : Controller
     {
-        private readonly IMapper _mapper;
         private readonly ILogger<FacultyController> _logger;
-        private readonly IFacultyService _facultyService;
         private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IFacultyService _facultyService;
+
 
         public FacultyController(IFacultyService facultyService, ILogger<FacultyController> logger, IHostingEnvironment hostingEnvironment)
         {
@@ -32,7 +31,7 @@ namespace LNUhelperUp.Controllers
         {
             var facultyDb = await _facultyService.GetFacultyAsync(id);
 
-            if(facultyDb == null)
+            if (facultyDb == null)
             {
                 return NotFound();
             }
@@ -78,7 +77,7 @@ namespace LNUhelperUp.Controllers
         {
             var faculty = await _facultyService.GetFacultyAsync(id);
 
-            if(faculty == null)
+            if (faculty == null)
             {
                 return NotFound();
             }
@@ -91,7 +90,7 @@ namespace LNUhelperUp.Controllers
         {
             var facultyNew = await _facultyService.CreateFacultyAsync(faculty);
 
-            if(facultyNew == null)
+            if (facultyNew == null)
             {
                 return BadRequest(new { message = "Faculty is already exist" });
             }

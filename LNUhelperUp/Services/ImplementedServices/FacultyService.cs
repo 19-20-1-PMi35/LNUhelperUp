@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using LNUhelperUp.Models;
 using LNUhelperUp.Services.IServices;
-using LNUhelperUp.UnitOfWork;
+using LNUhelperUp.UnitOfWorkPattern;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +11,13 @@ namespace LNUhelperUp.Services.ImplementedServices
 {
     public class FacultyService: IFacultyService
     {
-        private readonly IMapper _mapper;
+        // private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
-        public FacultyService(IUnitOfWork unitOfWork, IMapper mapper)
+        public FacultyService(IUnitOfWork unitOfWork/*,  IMapper mapper */)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
+            // _mapper = mapper;
         }
 
         public async Task DeleteFacultyAsync(Faculty faculty)
@@ -50,10 +50,10 @@ namespace LNUhelperUp.Services.ImplementedServices
                 return null;
             }
 
-            var facultyUpdated = _mapper.Map(faculty, facultyDb);
+            // var facultyUpdated = _mapper.Map(faculty, facultyDb);
             await _unitOfWork.Complete();
 
-            return facultyUpdated;
+            return faculty;
         }
 
         public async Task<Faculty> CreateFacultyAsync(Faculty faculty)
