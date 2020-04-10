@@ -3,5 +3,25 @@
     ViewData["Title"] = "ShowProfile";
 }
 
-<h1>ShowProfile</h1>
+    <div class="container-fluid profile-margin">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <img src="~/Images/naruto.jpeg" alt="Profile picture" height="200" width="150" />
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+                <p>Name</p>
+                <p>Faculty</p>
+                <p>Email</p>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <button style="margin-bottom: 15px; width: 200px" asp-controller="profile" asp-action="EditProfile">Редагувати</button>
+                <button style="margin-bottom: 15px; width: 200px" asp-controller="profile" asp-action="MyDiscussions">Мої обговорення</button>
+                <button style="width: 200px" asp-controller="profile" asp-action="MyEvents">Мої події</button>
+            </div>
+        </div>
+
+    </div>
 
