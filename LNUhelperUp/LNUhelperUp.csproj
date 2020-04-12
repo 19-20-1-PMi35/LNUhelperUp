@@ -22,8 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\Images\naruto.jpeg" />
-    <None Include="wwwroot\Images\naruto2.png" />
+   <PackageReference Include="AutoMapper" Version="9.0.0" />
+
+   <None Include="wwwroot\Images\naruto.jpeg" />
+   <None Include="wwwroot\Images\naruto2.png" />
   </ItemGroup>
 
   <ItemGroup>
