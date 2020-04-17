@@ -17,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using AutoMapper;
+using LNUhelperUp.Extensions;
 
 
 namespace LNUhelperUp
@@ -37,7 +38,7 @@ namespace LNUhelperUp
             services.AddDbContext<LNUhelperContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
             services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
-
+        // Repositories
             services.AddScoped<DbContext, LNUhelperContext>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IFacultyRepository, FacultyRepository>();
@@ -46,8 +47,12 @@ namespace LNUhelperUp
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<IAnnouncementRepository, AnnouncementRepository>();
-
+        // Services
             services.AddScoped<IFacultyService, FacultyService>();
+            services.AddScoped<IUserService, UserService>();
+        // Extensions
+            services.AddAutoMapper(typeof(Startup));
+            services.ConfigureAutoMapper();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
