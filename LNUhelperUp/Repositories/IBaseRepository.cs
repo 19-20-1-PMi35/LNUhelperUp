@@ -18,10 +18,8 @@ namespace LNUhelperUp.Repositories
         Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> expression);
         Task<TEntity> WhereMultipleIncludeAsync(Expression<Func<TEntity, bool>> expression, params Expression<Func<TEntity, object>>[] includes);
         IQueryable<TEntity> WhereMultipleInclude(Expression<Func<TEntity, bool>> expression, params Expression<Func<TEntity, object>>[] includes);
-        IQueryable<TEntity> GetFiltered(Expression<Func<TEntity, bool>> expressionForWhere,
-            Expression<Func<TEntity, object>> orderingExpression,
-            bool isAsc,
-            params Expression<Func<TEntity, object>>[] includes);
+        IQueryable<TEntity> GetFiltered(Expression<Func<TEntity, bool>> expressionForWhere, Expression<Func<TEntity, object>> orderingExpression,
+            bool isAsc, params Expression<Func<TEntity, object>>[] includes);
 
     }
 }
