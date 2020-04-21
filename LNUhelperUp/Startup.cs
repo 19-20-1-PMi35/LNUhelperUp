@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LNUhelperUp.Models;
+using LNUhelperUp.Repositories.ImplementedRepositories;
+using LNUhelperUp.Repositories.IRepositories;
+using LNUhelperUp.Services.ImplementedServices;
+using LNUhelperUp.Services.IServices;
+using LNUhelperUp.UnitOfWorkPattern;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,6 +15,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
+using AutoMapper;
+using LNUhelperUp.Extensions;
+
 
 namespace LNUhelperUp
 {
@@ -18,15 +27,32 @@ namespace LNUhelperUp
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration)
+            .CreateLogger();
         }
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<LNUhelperContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
+            services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
+        // Repositories
+            services.AddScoped<DbContext, LNUhelperContext>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IFacultyRepository, FacultyRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IEventRepository, EventRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<IAnnouncementRepository, AnnouncementRepository>();
+        // Services
+            services.AddScoped<IFacultyService, FacultyService>();
+            services.AddScoped<IUserService, UserService>();
+        // Extensions
+            services.AddAutoMapper(typeof(Startup));
+            services.ConfigureAutoMapper();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +70,7 @@ namespace LNUhelperUp
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
 
             app.UseRouting();
 

@@ -1,0 +1,22 @@
+﻿@{
+
+}
+<html>
+<head>
+    Addition of the new faculty
+</head>
+<body>
+    <div>
+        <form method="post">
+            <input type="hidden" value="@ViewBag.FacultyId" name="FacultyId"/>
+            <table>
+                <tr>
+                    <td>Name:</td>
+                    <td><input type="text" name="Name"/></td>
+                </tr>
+                <tr><td><input type="submit" value="Add"/></td></tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

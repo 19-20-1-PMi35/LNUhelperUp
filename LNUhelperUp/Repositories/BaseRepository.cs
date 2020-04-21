@@ -25,7 +25,7 @@ namespace LNUhelperUp.Repositories
 
         public virtual async Task<TEntity> GetAsync(int id)
         {
-            return await _entities.FindAsync();
+            return await _entities.FindAsync(id);
         }
 
         public virtual async Task AddAsync(TEntity entity)
