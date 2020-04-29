@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using LNUhelperUp.DTOs;
 using LNUhelperUp.Models;
+using LNUhelperUp.Models.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace LNUhelperUp.Extensions
             services.AddSingleton(new MapperConfiguration(c =>
             {
                 c.CreateMap<User, UserDTO>().ReverseMap();
+                c.CreateMap<RegistrationViewModel, User>();
             }).CreateMapper());
         }
     }
