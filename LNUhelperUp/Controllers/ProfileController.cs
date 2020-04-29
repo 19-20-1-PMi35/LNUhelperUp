@@ -20,7 +20,7 @@ namespace LNUhelperUp.Controllers
             _userService = userService;
             _logger = logger;
         }
-        public async Task<IActionResult> ShowProfile(int id = 4)
+        public async Task<IActionResult> ShowProfile(int id = 1)
         {
             var user = await _userService.GetAsync(id);
             return View(user);
