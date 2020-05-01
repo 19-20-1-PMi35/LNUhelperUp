@@ -18,7 +18,7 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using AutoMapper;
 using LNUhelperUp.Extensions;
-
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace LNUhelperUp
 {
@@ -35,6 +35,11 @@ namespace LNUhelperUp
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options => //CookieAuthenticationOptions
+            {
+                options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Auth/Login");
+            });
             services.AddDbContext<LNUhelperContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
             services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
@@ -70,17 +75,14 @@ namespace LNUhelperUp
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
-
             app.UseRouting();
-
-            app.UseAuthorization();
-
+            app.UseAuthentication();
+            app.UseAuthorization();    
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Auth}/{action=Login}/{id?}");
+                    pattern: "{controller=Auth}/{action=SignUp}/{id?}");
             });
         }
     }
