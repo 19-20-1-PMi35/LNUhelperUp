@@ -1,17 +1,41 @@
 ﻿@using Microsoft.AspNetCore.Html
+@model LNUhelperUp.Models.ViewModels.RegistrationViewModel
 @{
     ViewData["Title"] = "Реєстрація";
 }
 
 <h1 style="margin-top:20px">@ViewData["Title"]</h1>
-@using (Html.BeginForm("sign_up", "account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    
-    <p>Введіть e-mail:  @Html.TextBox("e-mail", "")</p>    
-    <p>Введіть ім'я:    @Html.TextBox("nickname", "")</p>
-    <p>Введіть пароль:   <input id="UserPassword" name="UserPassword" type="password" value="" /></p>
-    <button asp-controller="Home" asp-action="Index">Додати фото</button>
 
-    <hr />
-    <p><input type="submit" value="Зареєструватися" /></p>
-}
+<form asp-action="SignUp" asp-controller="Auth" asp-anti-forgery="true">
+    <div class="validation" asp-validation-summary="ModelOnly" />
+    <div>
+        <div>
+            <label asp-for="FacultyId">FacultyId</label><br />
+            <input type="text" asp-for="FacultyId" />
+            <span asp-validation-for="FacultyId" />
+        </div>
+        <div>
+            <label asp-for="Nickname">Enter Nickname</label><br />
+            <input type="text" asp-for="Nickname" />
+            <span asp-validation-for="Nickname" />
+        </div>
+        <div>
+            <label asp-for="Login">Enter Email</label><br />
+            <input type="text" asp-for="Login" />
+            <span asp-validation-for="Login" />
+        </div>
+        <div>
+            <label asp-for="Password">Введите пароль</label><br />
+            <input asp-for="Password" />
+            <span asp-validation-for="Password" />
+        </div>
+        <div>
+            <input type="submit" value="Зареєструватися" />
+        </div>
+        <button asp-controller="Home" asp-action="Index">Додати фото</button>
+    </div>
+</form>
+
+
+
+
