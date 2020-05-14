@@ -22,7 +22,7 @@ namespace LNUhelperUp.Controllers
         }
         public async Task<IActionResult> ShowProfile(int id = 1)
         {
-            var user = await _userService.GetAsync(id);
+            var user = await _userService.GetAsyncById(id);
             return View(user);
         }
 

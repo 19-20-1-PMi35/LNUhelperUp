@@ -45,6 +45,47 @@ namespace LNUhelperUp.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            //if (ModelState.IsValid)
+            //{
+            //    var user = await _userService.GetAsync(model);
+            //    if (user != null)
+            //    {
+            //        await Authenticate(model.Login);
+
+            //        return RedirectToAction("GetAllFaculty", "Faculty");
+            //    }
+            //    ModelState.AddModelError("", "Невірний пароль та(або) логін");
+            //}
+            //return View(model);
+
+
+            try
+            {
+                var user = await _userService.GetAsync(model);
+                await Authenticate(model.Login);
+
+                return RedirectToAction("GetAllFaculty", "Faculty");
+            }
+            catch (ValidationException e)
+            {
+                _logger.LogWarning($"Невірний пароль та(або) логін");
+
+                throw new ValidationException();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Exception was occurved: \n { e.Message }");
+
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+
+
         [HttpGet]
         public IActionResult SignUp()
         {

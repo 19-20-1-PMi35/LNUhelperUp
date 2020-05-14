@@ -44,7 +44,7 @@ namespace LNUhelperUp.Services.ImplementedServices
             // TODO password hashing
         }
 
-        public async Task<UserDTO> GetAsync(int id)
+        public async Task<UserDTO> GetAsyncById(int id)
         {
             var user = await _unitOfWork.UserRepository.GetAsync(id);
             var userDTO = _mapper.Map<User, UserDTO>(user);
@@ -52,9 +52,12 @@ namespace LNUhelperUp.Services.ImplementedServices
             return userDTO;
         }
 
-        public Task<UserDTO> GetByEmailAsync(string email)
+        public async Task<UserDTO> GetAsync(LoginViewModel model)
         {
-            throw new NotImplementedException();
+            var user = await _unitOfWork.UserRepository.SingleOrDefaultAsync(u => u.Login == model.Login && u.Password == model.Password);
+            var userDTO = _mapper.Map<User, UserDTO>(user);
+
+            return userDTO;
         }
     }
 }

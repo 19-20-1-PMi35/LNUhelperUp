@@ -10,7 +10,7 @@ namespace LNUhelperUp.Services.IServices
     public interface IUserService
     {
         Task<UserDTO> CreateUserAsync(RegistrationViewModel userDTO);
-        Task<UserDTO> GetAsync(int id);
-        Task<UserDTO> GetByEmailAsync(string email);
+        Task<UserDTO> GetAsyncById(int id);
+        Task<UserDTO> GetAsync(LoginViewModel email);
     }
 }
