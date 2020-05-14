@@ -25,7 +25,7 @@
             <span asp-validation-for="Login" />
         </div>
         <div>
-            <label asp-for="Password">Введите пароль</label><br />
+            <label asp-for="Password">Введіть пароль</label><br />
             <input asp-for="Password" />
             <span asp-validation-for="Password" />
         </div>
@@ -33,6 +33,7 @@
             <input type="submit" value="Зареєструватися" />
         </div>
         <button asp-controller="Home" asp-action="Index">Додати фото</button>
+        <a class="nav-link text-dark" style="text-align: center" asp-area="" asp-controller="auth" asp-action="Login">Увійти</a>
     </div>
 </form>
 
