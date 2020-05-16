@@ -24,18 +24,6 @@ namespace LNUhelperUp.Models.Configurations
 				.WithMany(c => c.Comments)
 				.HasForeignKey(uc => uc.UserId)
 				.OnDelete(DeleteBehavior.NoAction);
-
-			builder.HasMany(u => u.Comments)
-				.WithOne(u => u.ThisComment)
-				.HasForeignKey(u => u.CommentId)
-				.OnDelete(DeleteBehavior.NoAction);
-
-
-			builder.HasOne(uc => uc.ThisComment)
-				.WithMany(c => c.Comments)
-				.HasForeignKey(uc => uc.CommentId)
-				.OnDelete(DeleteBehavior.NoAction);
-
 		}
 	}
 }
