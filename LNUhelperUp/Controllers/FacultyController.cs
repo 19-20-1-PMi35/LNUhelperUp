@@ -69,7 +69,7 @@ namespace LNUhelperUp.Controllers
                 return NoContent();
             }
 
-            return Ok(faculties);
+            return View(faculties);
         }
 
         [HttpGet("{id}")]

@@ -18,14 +18,5 @@ namespace LNUhelperUp.Models
         public User User { get; set; }
         public int AnnouncementId { get; set; }
         public Announcement Announcement { get; set; }
-        public int CommentId { get; set; }
-        public Comment ThisComment { get; set; }
-
-        public ICollection<Comment> Comments { get; set; }
-
-        public Comment()
-        {
-            Comments = new Collection<Comment>();
-        }
     }
 }
