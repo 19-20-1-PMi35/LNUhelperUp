@@ -1,24 +1,46 @@
 ﻿@model IEnumerable<LNUhelperUp.Models.Faculty>
 @{
     ViewData["Title"] = "ShowFaculties";
+    var faculties = Model.ToList();
 }
 <html>
     <head>
-        <h1>ShowFaculties</h1>
+        <h1>Всі Факультети</h1>
     </head>
     <body>
-        <table>
-            <tr>
-                <td>Name</td>
-                <td></td>
-            </tr>
-            @foreach(var fac in Model)
-            {
-                <tr>
-                    <td style="text-align: center; font-size: 20px; width: 100%;"><a href="~/Faculty/Add">@fac.Name</a></td>
-                </tr>
-            }
-        </table>
+       
+        <div class="container">
+            <div class="row my-row justify-content-between align-items-center">
+                <div class="col my-col"><a href="~/Faculty/Add" id="fac_a">@faculties[0].Name</a></div>
+                <div class="col my-col"><a href="~/Faculty/Add" id="fac_a">@faculties[1].Name</a></div>
+                <div class="col my-col"><a href="~/Faculty/Add" id="fac_a">@faculties[2].Name</a></div>
+                <div class="col my-col"><a href="~/Faculty/Add" id="fac_a">@faculties[3].Name</a></div>
+                <div class="col my-col"><a href="~/Faculty/Add" id="fac_a">@faculties[4].Name</a></div>
+            </div>
+            <div class="row my-row justify-content-between align-items-center">
+                <div class="col my-col"><a href="~/Faculty/Add" id="fac_a">@faculties[5].Name</a></div>
+                <div class="col my-col"><a href="~/Faculty/Add" id="fac_a">@faculties[6].Name</a></div>
+                <div class="col my-col"><a href="~/Faculty/Add" id="fac_a">@faculties[7].Name</a></div>
+                <div class="col my-col"><a href="~/Faculty/Add" id="fac_a">@faculties[8].Name</a></div>
+                <div class="col my-col"><a href="~/Faculty/Add" id="fac_a">@faculties[9].Name</a></div>
+            </div>
+            <div class="row my-row justify-content-between align-items-center">
+                <div class="col my-col"><a href="~/Faculty/Add" id="fac_a">@faculties[10].Name</a></div>
+                <div class="col my-col"><a href="~/Faculty/Add" id="fac_a">@faculties[11].Name</a></div>
+                <div class="col my-col"><a href="~/Faculty/Add" id="fac_a">@faculties[12].Name</a></div>
+                <div class="col my-col"><a href="~/Faculty/Add" id="fac_a">@faculties[13].Name</a></div>
+                <div class="col my-col"><a href="~/Faculty/Add" id="fac_a">@faculties[14].Name</a></div>
+            </div>
+            <div class="row my-row justify-content-around align-items-center">
+                <div class="col my-col"><a href="~/Faculty/Add" id="fac_a">@faculties[15].Name</a></div>
+                <div class="col my-col"><a href="~/Faculty/Add" id="fac_a">@faculties[16].Name</a></div>
+                <div class="col my-col"><a href="~/Faculty/Add" id="fac_a">@faculties[17].Name</a></div>
+                <div class="col my-col"><a href="~/Faculty/Add" id="fac_a">@faculties[18].Name</a></div>
+               
+            </div>
+        </div>                        
+                         
+        
     </body>
 </html>
 
