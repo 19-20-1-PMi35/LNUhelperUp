@@ -17,9 +17,9 @@
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-2">
-            <button style="margin-bottom: 15px; width: 200px" asp-controller="profile" asp-action="EditProfile">Редагувати</button>
-            <button style="margin-bottom: 15px; width: 200px" asp-controller="profile" asp-action="MyDiscussions">Мої обговорення</button>
-            <button style="width: 200px" asp-controller="profile" asp-action="MyEvents">Мої події</button>
+            <input style="margin-bottom: 15px; width: 200px" type="button" value="Редагувати" onclick="window.location.href='@Url.Action("EditProfile", "Profile" )';" />
+            <input style="margin-bottom: 15px; width: 200px" type="button" value="Мої події" onclick="window.location.href='@Url.Action("MyEvents", "Profile" )';" />
+            <input style="width: 200px" type="button" value="Мої обговорення" onclick="window.location.href='@Url.Action("MyDiscussions", "Profile" )';" />
         </div>
     </div>
 

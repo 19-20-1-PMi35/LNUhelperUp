@@ -52,7 +52,7 @@ namespace LNUhelperUp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userService.GetAsync(model.Login);
+                var user = await _userService.GetAsync(model);
                 if (user != null)
                 {
                     await Authenticate(model.Login);
