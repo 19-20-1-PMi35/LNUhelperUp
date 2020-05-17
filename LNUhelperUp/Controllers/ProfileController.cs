@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LNUhelperUp.Models;
+using LNUhelperUp.Models.ViewModels;
 using LNUhelperUp.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -41,9 +42,25 @@ namespace LNUhelperUp.Controllers
         {
             return View();
         }
-
+        [HttpGet]
         public async Task<IActionResult> EditProfile()
         {
+            var user = await _userService.GetUser(User.Identity.Name);
+            ViewBag.FacultyId = user.FacultyId;
+            ViewBag.Nickname = user.Nickname;
+            ViewBag.Password = user.Password;
+            ViewBag.Login = user.Login;
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditProfile(EditViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                await _userService.UpdateAsync(User.Identity.Name, model);
+
+                return RedirectToAction("ShowProfile", "Profile");
+            }
             return View();
         }
     }

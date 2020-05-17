@@ -69,5 +69,21 @@ namespace LNUhelperUp.Services.ImplementedServices
             userDTO.FacultyName = faculty.Name;
             return userDTO;
         }
+
+        public async Task<User> GetUser(string login)
+        {
+            var user = await _unitOfWork.UserRepository.SingleOrDefaultAsync(u => u.Login == login);
+            return user;
+        }
+
+        public async Task UpdateAsync(string login, EditViewModel model)
+        {
+            var user = await _unitOfWork.UserRepository.SingleOrDefaultAsync(u => u.Login == login);
+
+
+            _mapper.Map(model, user);
+
+            await _unitOfWork.Complete();
+        }
     }
 }

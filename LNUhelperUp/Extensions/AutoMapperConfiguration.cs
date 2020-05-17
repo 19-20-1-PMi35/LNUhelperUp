@@ -18,6 +18,7 @@ namespace LNUhelperUp.Extensions
             {
                 c.CreateMap<User, UserDTO>().ReverseMap();
                 c.CreateMap<RegistrationViewModel, User>();
+                c.CreateMap<EditViewModel, User>();
             }).CreateMapper());
         }
     }

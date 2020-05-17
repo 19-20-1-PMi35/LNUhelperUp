@@ -97,9 +97,13 @@ namespace LNUhelperUp.Controllers
         {
             try
             {
-                var newUser = await _userService.CreateUserAsync(model);
-                await Authenticate(model.Login);
-                return RedirectToAction("GetAllFaculty", "Faculty");
+                if (ModelState.IsValid)
+                {
+                    var newUser = await _userService.CreateUserAsync(model);
+                    await Authenticate(model.Login);
+                    return RedirectToAction("GetAllFaculty", "Faculty");
+                }
+                return View(model);
             }
             catch (ValidationException e)
             {
