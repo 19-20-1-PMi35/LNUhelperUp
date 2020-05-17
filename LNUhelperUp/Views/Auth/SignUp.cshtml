@@ -4,6 +4,7 @@
     ViewData["Title"] = "Реєстрація";
 }
 
+@Html.ValidationSummary(true)
 <h1 style="margin-top:20px">@ViewData["Title"]</h1>
 
 <form asp-action="SignUp" asp-controller="Auth" asp-anti-forgery="true">
@@ -12,22 +13,22 @@
         <div>
             <label asp-for="FacultyId">FacultyId</label><br />
             <input type="text" asp-for="FacultyId" />
-            <span asp-validation-for="FacultyId" />
+            @Html.ValidationMessageFor(model => model.FacultyId)
         </div>
         <div>
             <label asp-for="Nickname">Enter Nickname</label><br />
             <input type="text" asp-for="Nickname" />
-            <span asp-validation-for="Nickname" />
+            @Html.ValidationMessageFor(model => model.Nickname)
         </div>
         <div>
             <label asp-for="Login">Enter Email</label><br />
             <input type="text" asp-for="Login" />
-            <span asp-validation-for="Login" />
+            @Html.ValidationMessageFor(model => model.Login)
         </div>
         <div>
             <label asp-for="Password">Введіть пароль</label><br />
             <input asp-for="Password" />
-            <span asp-validation-for="Password" />
+            @Html.ValidationMessageFor(model => model.Password)
         </div>
         <div>
             <input type="submit" value="Зареєструватися" />
