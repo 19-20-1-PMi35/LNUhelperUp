@@ -52,11 +52,12 @@ namespace LNUhelperUp.Services.ImplementedServices
             return userDTO;
         }
 
-        public async Task<UserDTO> GetAsync(LoginViewModel model)
+        public async Task<UserDTO> GetAsync(string login)
         {
-            var user = await _unitOfWork.UserRepository.SingleOrDefaultAsync(u => u.Login == model.Login && u.Password == model.Password);
+            var user = await _unitOfWork.UserRepository.SingleOrDefaultAsync(u => u.Login == login);
+            var faculty = await _unitOfWork.FacultyRepository.GetAsync(user.FacultyId);
             var userDTO = _mapper.Map<User, UserDTO>(user);
-
+            userDTO.FacultyName = faculty.Name;
             return userDTO;
         }
     }

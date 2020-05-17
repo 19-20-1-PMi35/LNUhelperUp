@@ -22,11 +22,11 @@ namespace LNUhelperUp.Controllers
             _logger = logger;
         }
         [Authorize]
-        public async Task<IActionResult> ShowProfile(int id = 1)
+        public async Task<IActionResult> ShowProfile()
         {
             if (User.Identity.IsAuthenticated)
             {
-                var user = await _userService.GetAsyncById(id);
+                var user = await _userService.GetAsync(User.Identity.Name);
                 return View(user);
             }
             return RedirectToAction("Login", "Auth");

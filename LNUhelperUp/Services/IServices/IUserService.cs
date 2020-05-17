@@ -11,6 +11,6 @@ namespace LNUhelperUp.Services.IServices
     {
         Task<UserDTO> CreateUserAsync(RegistrationViewModel userDTO);
         Task<UserDTO> GetAsyncById(int id);
-        Task<UserDTO> GetAsync(LoginViewModel email);
+        Task<UserDTO> GetAsync(string email);
     }
 }

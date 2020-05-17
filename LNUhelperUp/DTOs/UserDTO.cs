@@ -12,7 +12,7 @@ namespace LNUhelperUp.DTOs
         public string Nickname { get; set; }
         public string Login { get; set; }
         public int RoleId { get; set; }
-        public int FacultyId { get; set; }
+        public string FacultyName { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
         public ICollection<Event> Events { get; set; }
