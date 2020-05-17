@@ -26,7 +26,7 @@ namespace LNUhelperUp.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var user = await _userService.GetAsync(User.Identity.Name);
+                var user = await _userService.GetAsyncByEmail(User.Identity.Name);
                 return View(user);
             }
             return RedirectToAction("Login", "Auth");
