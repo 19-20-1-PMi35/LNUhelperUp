@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using LNUhelperUp.Models;
 using LNUhelperUp.Services.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -60,16 +61,21 @@ namespace LNUhelperUp.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAllFaculty()
         {
-            var faculties = await _facultyService.GetAllFacultyAsync();
-
-            if (faculties == null)
+            if (User.Identity.IsAuthenticated)
             {
-                return NoContent();
-            }
+                var faculties = await _facultyService.GetAllFacultyAsync();
+                var name = User.Identity.Name;
+                if (faculties == null)
+                {
+                    return NoContent();
+                }
 
-            return View(faculties);
+                return View(faculties);
+            }
+            return RedirectToAction("Login", "Auth");
         }
 
         [HttpGet("{id}")]
