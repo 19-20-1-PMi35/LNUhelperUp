@@ -62,27 +62,6 @@ namespace LNUhelperUp.Controllers
                 ModelState.AddModelError("", "Невірний пароль та(або) логін");
             }
             return View(model);
-
-
-            //try
-            //{
-            //    var user = await _userService.GetAsync(model);
-            //    await Authenticate(model.Login);
-
-            //    return RedirectToAction("GetAllFaculty", "Faculty");
-            //}
-            //catch (ValidationException e)
-            //{
-            //    _logger.LogWarning($"Невірний пароль та(або) логін");
-
-            //    throw new ValidationException();
-            //}
-            //catch (Exception e)
-            //{
-            //    _logger.LogError($"Exception was occurved: \n { e.Message }");
-
-            //    return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
-            //}
         }
 
 
@@ -95,28 +74,18 @@ namespace LNUhelperUp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SignUp(RegistrationViewModel model)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                var user = await _userService.CreateUserAsync(model);
+                if (user != null)
                 {
-                    var newUser = await _userService.CreateUserAsync(model);
                     await Authenticate(model.Login);
+
                     return RedirectToAction("GetAllFaculty", "Faculty");
                 }
-                return View(model);
+                ModelState.AddModelError("", "Невірний пароль та(або) логін");
             }
-            catch (ValidationException e)
-            {
-                _logger.LogWarning($"User already exists");
-
-                throw new ValidationException();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError($"Exception was occurved: \n { e.Message }");
-
-                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
-            }
+            return View(model);
         }
 
         private async Task Authenticate(string userName)
