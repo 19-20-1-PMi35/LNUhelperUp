@@ -55,7 +55,8 @@ namespace LNUhelperUp
         // Services
             services.AddScoped<IFacultyService, FacultyService>();
             services.AddScoped<IUserService, UserService>();
-        // Extensions
+            services.AddScoped<IEventService, EventService>();
+            // Extensions
             services.AddAutoMapper(typeof(Startup));
             services.ConfigureAutoMapper();
         }
