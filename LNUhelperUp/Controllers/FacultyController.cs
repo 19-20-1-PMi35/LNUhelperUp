@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using LNUhelperUp.DTOs;
 using LNUhelperUp.Models;
 using LNUhelperUp.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
@@ -15,13 +17,15 @@ namespace LNUhelperUp.Controllers
     [Route("api/[controller]")]
     public class FacultyController : Controller
     {
+        private readonly IMapper _mapper;
         private readonly ILogger<FacultyController> _logger;
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly IFacultyService _facultyService;
 
 
-        public FacultyController(IFacultyService facultyService, ILogger<FacultyController> logger, IHostingEnvironment hostingEnvironment)
+        public FacultyController(IMapper mapper, IFacultyService facultyService, ILogger<FacultyController> logger, IHostingEnvironment hostingEnvironment)
         {
+            _mapper = mapper;
             _facultyService = facultyService;
             _logger = logger;
             _hostingEnvironment = hostingEnvironment;
@@ -43,14 +47,14 @@ namespace LNUhelperUp.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateFaculty(Faculty faculty)
+        public async Task<IActionResult> UpdateFaculty(FacultyDTO facultyDTO)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            var facultyUpdated = await _facultyService.UpdateFacultyAsync(faculty);
+            var facultyUpdated = await _facultyService.UpdateFacultyAsync(facultyDTO);
 
             if (facultyUpdated == null)
             {
@@ -67,7 +71,6 @@ namespace LNUhelperUp.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var faculties = await _facultyService.GetAllFacultyAsync();
-                var name = User.Identity.Name;
                 if (faculties == null)
                 {
                     return NoContent();
@@ -92,8 +95,10 @@ namespace LNUhelperUp.Controllers
         }
 
         [HttpPost("{id}")]
-        public async Task<IActionResult> CreateFaculty(Faculty faculty)
+        public async Task<IActionResult> CreateFaculty(FacultyDTO facultyDTO)
         {
+            var faculty = _mapper.Map<Faculty>(facultyDTO);
+
             var facultyNew = await _facultyService.CreateFacultyAsync(faculty);
 
             if (facultyNew == null)

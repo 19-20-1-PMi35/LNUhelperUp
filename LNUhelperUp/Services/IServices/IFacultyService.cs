@@ -1,4 +1,5 @@
-﻿using LNUhelperUp.Models;
+﻿using LNUhelperUp.DTOs;
+using LNUhelperUp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ namespace LNUhelperUp.Services.IServices
     public interface IFacultyService
     {
         Task<Faculty> CreateFacultyAsync(Faculty faculty);
-        Task<Faculty> GetFacultyAsync(int id);
-        Task<IEnumerable<Faculty>> GetAllFacultyAsync();
-        Task<Faculty> UpdateFacultyAsync(Faculty faculty);
-        Task DeleteFacultyAsync(Faculty faculty);
+        Task<FacultyDTO> GetFacultyAsync(int id);
+        Task<IEnumerable<FacultyDTO>> GetAllFacultyAsync();
+        Task<FacultyDTO> UpdateFacultyAsync(FacultyDTO facultyDTO);
+        Task DeleteFacultyAsync(FacultyDTO facultyDTO);
     }
 }
