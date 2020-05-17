@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using LNUhelperUp.Models;
 using LNUhelperUp.Services.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -20,10 +21,15 @@ namespace LNUhelperUp.Controllers
             _userService = userService;
             _logger = logger;
         }
+        [Authorize]
         public async Task<IActionResult> ShowProfile(int id = 1)
         {
-            var user = await _userService.GetAsyncById(id);
-            return View(user);
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = await _userService.GetAsyncById(id);
+                return View(user);
+            }
+            return RedirectToAction("Login", "Auth");
         }
 
         public async Task<IActionResult> MyEvents()
