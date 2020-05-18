@@ -1,4 +1,5 @@
 ﻿using LNUhelperUp.DTOs;
+using LNUhelperUp.Models;
 using LNUhelperUp.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,9 @@ namespace LNUhelperUp.Services.IServices
     {
         Task<UserDTO> CreateUserAsync(RegistrationViewModel userDTO);
         Task<UserDTO> GetAsyncById(int id);
-        Task<UserDTO> GetAsync(string email);
+        Task<UserDTO> GetAsyncByEmail(string login);
+        Task<UserDTO> GetAsync(LoginViewModel model);
+        Task UpdateAsync(string login, EditViewModel model);
+        Task<User> GetUser(string login);
     }
 }
