@@ -68,10 +68,10 @@ namespace LNUhelperUp.Controllers
             {
                 var events = await _eventService.GetAllEventAsync();
                 var name = User.Identity.Name;
-                if (events == null)
+                /*if (events == null)
                 {
                     return NoContent();
-                }
+                }*/
 
                 return View(events);
             }

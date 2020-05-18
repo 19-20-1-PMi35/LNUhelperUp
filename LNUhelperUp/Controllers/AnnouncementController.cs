@@ -68,10 +68,10 @@ namespace LNUhelperUp.Controllers
             {
                 var announcements = await _announcementService.GetAllAnnouncementAsync();
                 var name = User.Identity.Name;
-                if (announcements == null)
+                /*if (announcements == null)
                 {
                     return NoContent();
-                }
+                }*/
 
                 return View(announcements);
             }
