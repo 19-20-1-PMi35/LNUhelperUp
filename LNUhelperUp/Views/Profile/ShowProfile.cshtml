@@ -4,25 +4,50 @@
     string path = @Model.ImagePath;
 }
 
-<div class="container-fluid profile-margin">
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-2">
-            <img src="@path" alt="Profile picture" height="200" width="150" />
+    <form class="form-inline">
+        <h1>Мій профіль</h1>
+        <div class="form-group mx-sm-3 mb-2">
+            <button class="btn btn-outline-info btn-sm" type="button" onclick="window.location.href='@Url.Action("EditProfile", "Profile" )';">Редагувати</button>
         </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-3">
-            <p>@Model.Nickname</p>
-            <p>@Model.FacultyName</p>
-            <p>@Model.Login</p>
-        </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-2">
-            <input style="margin-bottom: 15px; width: 200px" type="button" value="Редагувати" onclick="window.location.href='@Url.Action("EditProfile", "Profile" )';" />
-            <input style="margin-bottom: 15px; width: 200px" type="button" value="Мої події" onclick="window.location.href='@Url.Action("MyEvents", "Profile" )';" />
-            <input style="width: 200px" type="button" value="Мої обговорення" onclick="window.location.href='@Url.Action("MyDiscussions", "Profile" )';" />
-        </div>
-    </div>
+        
+    </form>
 
-</div>
+
+    
+        
+            <table style="margin-top:20px;" class="table-sm">
+
+                <tbody>
+
+                    <tr>
+                        <th scope="row">Нікнейм: </th>
+                        <td>@Model.Nickname</td>
+                        <td rowspan="6"><img src="@path" alt="Profile picture" height="250" width="250" style="padding-left:50px;" /></td>
+                        <td> <button class="btn btn-outline-warning btn-sm" type="button" onclick="window.location.href='@Url.Action("EditProfile", "Profile" )';">Змінити фото</button></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Факультет: </th>
+                        <td>@Model.FacultyName</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Email: </th>
+                        <td>@Model.Login</td>
+                    </tr>
+                    <tr>
+                        <td> <button class="btn btn-outline-secondary" type="button" onclick="window.location.href='@Url.Action("MyEvents", "Profile" )';">Мої події</button></td>
+                    </tr>
+                    <tr>
+                        <td><button class="btn btn-outline-secondary" type="button" onclick="window.location.href='@Url.Action("MyDiscussions", "Profile" )';">Мої обговорення</button></td>
+                    </tr>
+
+                   
+
+
+                </tbody>
+            </table>
+        
+
+
+  
+
 
