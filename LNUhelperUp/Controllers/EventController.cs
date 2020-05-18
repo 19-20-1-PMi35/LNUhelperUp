@@ -60,8 +60,17 @@ namespace LNUhelperUp.Controllers
             {
                 return BadRequest(new { message = "Event id is incorrect" });
             }
+            else
+            {
+                return RedirectToAction("GetAllEvent", "Event");
+            }
 
-            return Ok(eventUpdated);
+        }
+        public async Task<IActionResult> UpdateFaculty(int id)
+        {
+            var _event = await _eventService.GetEventAsync(id);
+            ViewBag.Name = _event.Name;
+            return View();
         }
 
         [HttpGet]
@@ -71,11 +80,11 @@ namespace LNUhelperUp.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var events = await _eventService.GetAllEventAsync();
-                var name = User.Identity.Name;
-                /*if (events == null)
+                
+                if (events == null)
                 {
                     return NoContent();
-                }*/
+                }
 
                 return View(events);
             }
