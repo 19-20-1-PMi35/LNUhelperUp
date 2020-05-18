@@ -1,13 +1,14 @@
 ﻿@model LNUhelperUp.DTOs.UserDTO
 @{
     ViewData["Title"] = "ShowProfile";
+    string path = @Model.ImagePath;
 }
 
 <div class="container-fluid profile-margin">
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-2">
-            <img src="~/Images/naruto.jpeg" alt="Profile picture" height="200" width="150" />
+            <img src="@path" alt="Profile picture" height="200" width="150" />
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-3">

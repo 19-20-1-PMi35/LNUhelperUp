@@ -19,6 +19,18 @@ namespace LNUhelperUp.UnitOfWorkPattern
         private IFacultyRepository _facultyRepository;
         private IRoleRepository _roleRepository;
         private IUserRepository _userRepository;
+        private IImageRepository _imageRepository;
+
+        public IImageRepository ImageRepository
+        {
+            get
+            {
+                if (_imageRepository == null)
+                    _imageRepository = new ImageRepository(_context);
+
+                return _imageRepository;
+            }
+        }
 
         public IAnnouncementRepository AnnouncementRepository
         {

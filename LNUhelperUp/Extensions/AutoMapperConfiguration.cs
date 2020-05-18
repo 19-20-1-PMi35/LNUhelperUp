@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using LNUhelperUp.DTOs;
 using LNUhelperUp.Models;
+using LNUhelperUp.Models.Entities;
 using LNUhelperUp.Models.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -19,6 +20,7 @@ namespace LNUhelperUp.Extensions
                 c.CreateMap<User, UserDTO>().ReverseMap();
                 c.CreateMap<RegistrationViewModel, User>();
                 c.CreateMap<EditViewModel, User>();
+                c.CreateMap<Image, ImageDTO>().ReverseMap();
             }).CreateMapper());
         }
     }

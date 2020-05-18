@@ -21,5 +21,6 @@ namespace LNUhelperUp.Models.ViewModels
         [Required(ErrorMessage = "Empty password")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+        public int ImageId { get; set; }
     }
 }

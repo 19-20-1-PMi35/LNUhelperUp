@@ -14,7 +14,7 @@ namespace LNUhelperUp.UnitOfWorkPattern
         IFacultyRepository FacultyRepository { get; }
         IRoleRepository RoleRepository { get; }
         IUserRepository UserRepository { get; }
-
+        IImageRepository ImageRepository { get; }
         Task<int> Complete();
     }
 }
