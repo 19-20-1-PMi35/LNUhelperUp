@@ -33,7 +33,6 @@ namespace LNUhelperUp.Services.ImplementedServices
         {
             var eventDb = await _unitOfWork.EventRepository.GetAsync(id);
             var eventDbDTO = _mapper.Map<Event, EventDTO>(eventDb);
-
             return eventDbDTO;
         }
 
