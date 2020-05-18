@@ -88,5 +88,15 @@ namespace LNUhelperUp.Services.ImplementedServices
 
             await _unitOfWork.Complete();
         }
+
+        public async Task UpdatePhototAsync(string login, EditPhotoViewModel model)
+        {
+            var user = await _unitOfWork.UserRepository.SingleOrDefaultAsync(u => u.Login == login);
+
+
+            _mapper.Map(model, user);
+
+            await _unitOfWork.Complete();
+        }
     }
 }

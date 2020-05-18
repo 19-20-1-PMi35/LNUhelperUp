@@ -11,5 +11,7 @@ namespace LNUhelperUp.Services.IServices
     public interface IImageService
     {
         Task<ImageDTO> GetAsync(int id);
+        Task<ImageDTO> GetAsyncByPath(string path);
+        Task<ImageDTO> CreateAsync(string name, string path);
     }
 }

@@ -15,6 +15,7 @@ namespace LNUhelperUp.Services.IServices
         Task<UserDTO> GetAsyncByEmail(string login);
         Task<UserDTO> GetAsync(LoginViewModel model);
         Task UpdateAsync(string login, EditViewModel model);
+        Task UpdatePhototAsync(string login, EditPhotoViewModel model);
         Task<User> GetUser(string login);
     }
 }
