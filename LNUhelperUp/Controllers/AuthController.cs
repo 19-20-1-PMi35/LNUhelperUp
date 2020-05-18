@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 
 namespace LNUhelperUp.Controllers
@@ -18,10 +19,12 @@ namespace LNUhelperUp.Controllers
     public class AuthController : Controller
     {
         private readonly IUserService _userService;
+        private readonly IFacultyService _facultyService;
         private readonly ILogger<AuthController> _logger;
 
-        public AuthController(IUserService userService, ILogger<AuthController> logger)
+        public AuthController(IUserService userService, ILogger<AuthController> logger, IFacultyService facultyService)
         {
+            _facultyService = facultyService;
             _userService = userService;
             _logger = logger;
         }
@@ -66,8 +69,10 @@ namespace LNUhelperUp.Controllers
 
 
         [HttpGet]
-        public IActionResult SignUp()
+        public async Task<IActionResult> SignUp()
         {
+            var faculties = await _facultyService.GetAllFacultyAsync();
+            ViewBag.Faculties = new SelectList(faculties, "Id", "Name");
             return View();
         }
         [HttpPost]
@@ -76,6 +81,7 @@ namespace LNUhelperUp.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 var user = await _userService.CreateUserAsync(model);
                 if (user != null)
                 {

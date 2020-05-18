@@ -1,45 +1,55 @@
-﻿@using Microsoft.AspNetCore.Html
-@model LNUhelperUp.Models.ViewModels.RegistrationViewModel
+﻿@model LNUhelperUp.Models.ViewModels.RegistrationViewModel
 @{
     ViewData["Title"] = "Реєстрація";
 }
 @Html.ValidationSummary(true)
 
-@Html.ValidationSummary(true)
 <h1 style="margin-top:20px">@ViewData["Title"]</h1>
 
-<a asp-action="Login" asp-controller="Auth">Увійти</a>
 
-<form asp-action="SignUp" asp-controller="Auth" asp-anti-forgery="true">
+
+<form asp-action="SignUp" asp-controller="Auth" asp-anti-forgery="true" style="margin-top:20px;">
     <div class="validation" asp-validation-summary="ModelOnly" />
     <div>
-        <div class="form-group">
-            <label asp-for="FacultyId">FacultyId</label><br />
-            <input type="text" asp-for="FacultyId" />
-            @Html.ValidationMessageFor(model => model.FacultyId)
+        <div class="form-group row">
+            <label asp-for="FacultyId" class="col-sm-2 col-form-label">Faculty</label><br />
+            <div class="col-sm-10">
+                <select class="form-control" asp-for="FacultyId" asp-items="ViewBag.Faculties"></select>
+                @Html.ValidationMessageFor(model => model.FacultyId)
+            </div>
         </div>
-        <div class="form-group">
-            <label asp-for="Nickname">Enter Nickname</label><br />
-            <input type="text" asp-for="Nickname" />
-            @Html.ValidationMessageFor(model => model.Nickname)
+        <div class="form-group row">
+            <label asp-for="Nickname" class="col-sm-2 col-form-label">Логін</label><br />
+            <div class="col-sm-10">
+                <input class="form-control" type="text" asp-for="Nickname" />
+                @Html.ValidationMessageFor(model => model.Nickname)
+            </div>
         </div>
-        <div class="form-group">
-            <label asp-for="Login">Enter Email</label><br />
-            <input type="text" asp-for="Login" />
-            @Html.ValidationMessageFor(model => model.Login)
+        <div class="form-group row">
+            <label asp-for="Login" class="col-sm-2 col-form-label">Email</label><br />
+            <div class="col-sm-10">
+                <input class="form-control" type="text" asp-for="Login" />
+                @Html.ValidationMessageFor(model => model.Login)
+            </div>
         </div>
-        <div class="form-group">
-            <label asp-for="Password">Введіть пароль</label><br />
-            <input asp-for="Password" />
-            @Html.ValidationMessageFor(model => model.Password)
+        <div class="form-group row">
+            <label asp-for="Password" class="col-sm-2 col-form-label">Пароль</label><br />
+            <div class="col-sm-10">
+                <input class="form-control" asp-for="Password" />
+                @Html.ValidationMessageFor(model => model.Password)
+            </div>
         </div>
-        <div class="form-group">
-            <input type="submit" value="Зареєструватися" class="btn btn-outline-dark" />
+            
+        <div class="form-inline justify-content-center" style="margin-top:35px;" align:center>
+            <div class="form-group mb-2">
+                <input type="submit" value="Зареєструватися" class="btn btn-outline-success" />
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <a asp-action="Login" asp-controller="Auth">Увійти</a>
+            </div>
         </div>
-        <div class="form-group">
-            <input class="btn btn-outline-dark" value="Додати фото" onclick="window.location.href='@Url.Action("AddPhoto", "Auth" )';" />
+
         </div>
-    </div>
 </form>
 
 
