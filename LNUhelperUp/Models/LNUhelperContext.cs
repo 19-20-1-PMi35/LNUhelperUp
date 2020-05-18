@@ -1,4 +1,5 @@
 ﻿using LNUhelperUp.Models.Configurations;
+using LNUhelperUp.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace LNUhelperUp.Models
         public DbSet<Role> Roles { get; set; }
         public DbSet<Announcement> Announcements { get; set; }
         public DbSet<Event> Events { get; set; }
+        public DbSet<Image> Images { get; set; }
 
         public LNUhelperContext(DbContextOptions options) : base(options)
         {
