@@ -25,6 +25,7 @@ namespace LNUhelperUp.Services.ImplementedServices
         }
         public async Task<UserDTO> CreateUserAsync(RegistrationViewModel registrationModel)
         {
+            registrationModel.ImageId = 1;
             var user = _mapper.Map<User>(registrationModel);
             var existedUser = await _unitOfWork.UserRepository.SingleOrDefaultAsync(u => u.Login == user.Login);
             if (existedUser != null)
@@ -56,8 +57,10 @@ namespace LNUhelperUp.Services.ImplementedServices
         {
             var user = await _unitOfWork.UserRepository.SingleOrDefaultAsync(u => u.Login == login);
             var faculty = await _unitOfWork.FacultyRepository.GetAsync(user.FacultyId);
+            var image = await _unitOfWork.ImageRepository.GetAsync(user.ImageId);
             var userDTO = _mapper.Map<User, UserDTO>(user);
             userDTO.FacultyName = faculty.Name;
+            userDTO.ImagePath = image.Path;
             return userDTO;
         }
 

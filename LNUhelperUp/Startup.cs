@@ -52,11 +52,13 @@ namespace LNUhelperUp
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<IAnnouncementRepository, AnnouncementRepository>();
+            services.AddScoped<IImageRepository, ImageRepository>();
             // Services
             services.AddScoped<IAnnouncementService, AnnouncementService>();
             services.AddScoped<IFacultyService, FacultyService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IEventService, EventService>();
+            services.AddScoped<IImageService, ImageService>();
             // Extensions
             services.AddAutoMapper(typeof(Startup));
             services.ConfigureAutoMapper();
