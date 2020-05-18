@@ -8,6 +8,8 @@ namespace LNUhelperUp.DTOs
     public class EventDTO
     {
         public int Id { get; set; }
+        public string Name { get; set; }
+        public int? ParticipantAmount { get; set; }
         public string Text { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime Time { get; set; }
