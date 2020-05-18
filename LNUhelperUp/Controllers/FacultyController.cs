@@ -14,7 +14,7 @@ using Microsoft.Extensions.Logging;
 namespace LNUhelperUp.Controllers
 {
     [Controller]
-    [Route("api/[controller]")]
+    // [Route("api/[controller]")]
     public class FacultyController : Controller
     {
         private readonly IMapper _mapper;
@@ -29,39 +29,6 @@ namespace LNUhelperUp.Controllers
             _facultyService = facultyService;
             _logger = logger;
             _hostingEnvironment = hostingEnvironment;
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteFaculty(int id)
-        {
-            var facultyDb = await _facultyService.GetFacultyAsync(id);
-
-            if (facultyDb == null)
-            {
-                return NotFound();
-            }
-
-            await _facultyService.DeleteFacultyAsync(facultyDb);
-
-            return Ok();
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateFaculty(FacultyDTO facultyDTO)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
-            var facultyUpdated = await _facultyService.UpdateFacultyAsync(facultyDTO);
-
-            if (facultyUpdated == null)
-            {
-                return BadRequest(new { message = "Faculty id is incorrect" });
-            }
-
-            return Ok(facultyUpdated);
         }
 
         [HttpGet]
@@ -81,7 +48,6 @@ namespace LNUhelperUp.Controllers
             return RedirectToAction("Login", "Auth");
         }
 
-        [HttpGet("{id}")]
         public async Task<IActionResult> GetFaculty(int id)
         {
             var faculty = await _facultyService.GetFacultyAsync(id);
@@ -91,10 +57,16 @@ namespace LNUhelperUp.Controllers
                 return NotFound();
             }
 
-            return Ok(faculty);
+            return View(faculty);
         }
 
-        [HttpPost("{id}")]
+        [HttpGet]
+        public IActionResult CreateFaculty()
+        {
+            return View();
+        }
+
+        [HttpPost]
         public async Task<IActionResult> CreateFaculty(FacultyDTO facultyDTO)
         {
             var faculty = _mapper.Map<Faculty>(facultyDTO);
@@ -106,7 +78,53 @@ namespace LNUhelperUp.Controllers
                 return BadRequest(new { message = "Faculty is already exist" });
             }
 
+            return View();
+        }
+
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteFaculty(int id)
+        {
+            var facultyDb = await _facultyService.GetFacultyAsync(id);
+
+            if (facultyDb == null)
+            {
+                return NotFound();
+            }
+
+            await _facultyService.DeleteFacultyAsync(facultyDb);
+
             return Ok();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateFaculty(int id)
+        {
+            var faculty = await _facultyService.GetFacultyAsync(id);
+            ViewBag.Name = faculty.Name;
+            return View();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateFaculty(FacultyDTO facultyDTO)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var facultyUpdated = await _facultyService.UpdateFacultyAsync(facultyDTO);
+
+            if (facultyUpdated == null)
+            {
+                return BadRequest(new { message = "Faculty id is incorrect" });
+            }
+            else
+            {
+                return RedirectToAction("GetAllFaculty", "Faculty");
+            }
+        }
+
     }
 }
