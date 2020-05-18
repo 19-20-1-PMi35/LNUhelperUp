@@ -11,7 +11,7 @@
     <div>
         <div>
             <label asp-for="FacultyId">FacultyId</label><br />
-            <input type="text" asp-for="FacultyId" value="@ViewBag.FacultyId" />
+            <select asp-for="FacultyId" asp-items="ViewBag.Faculties"></select>
             @Html.ValidationMessageFor(model => model.FacultyId)
         </div>
         <div>
