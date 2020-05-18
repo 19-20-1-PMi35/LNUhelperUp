@@ -52,7 +52,8 @@ namespace LNUhelperUp
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<IAnnouncementRepository, AnnouncementRepository>();
-        // Services
+            // Services
+            services.AddScoped<IAnnouncementService, AnnouncementService>();
             services.AddScoped<IFacultyService, FacultyService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IEventService, EventService>();
