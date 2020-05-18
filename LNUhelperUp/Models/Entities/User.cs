@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LNUhelperUp.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
@@ -19,6 +20,8 @@ namespace LNUhelperUp.Models
         public Role Role { get; set; }
         public int FacultyId { get; set; }
         public Faculty Faculty { get; set; }
+        public int ImageId { get; set; }
+        public Image Image { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
         public ICollection<Event> Events { get; set; }
