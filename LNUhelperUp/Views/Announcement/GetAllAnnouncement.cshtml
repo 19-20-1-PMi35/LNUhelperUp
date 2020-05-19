@@ -4,30 +4,34 @@
     var officialEvents = Model.ToList();
 }
 
+<form class="form-inline">
+    <h1>Оголошення</h1>
     <div class="form-group mx-sm-3 mb-2">
         <button class="btn btn-outline-info btn-sm" type="button" onclick="window.location.href='@Url.Action("CreateAnnouncement", "Announcement" )';">Додати оголошення</button>
     </div>
 
+</form>
+
+
 @foreach (var item in officialEvents)
 {
-    <table style="margin-top:20px;" class="table-sm">
+    <table style="margin-top:20px; margin-bottom:100px;" class="table-sm">
         <tbody>
             <tr>
-                <td>@item.Time.ToString("dd MMM yyyy")</td>
+
+                <th scope="row">Дата: @item.Time.ToString("dd MMM yyyy")</th>
+                <td ></td>               
+                
             </tr>
             <tr>
-                <td>@item.Name</td>
+
+                <td align="center"><h4>@item.Name</h4></td>
+                <td rowspan="3" ><img src="@item.ImagePath" alt="Announcement picture" height="250" width="250" style="padding-left:50px;" /></td>
             </tr>
             <tr>
-                <td><img src="@item.ImagePath" alt="Profile picture" height="250" width="250" style="padding-left:50px;" /></td>
+                <td align="justify">@item.Text</td>
             </tr>
-            <tr>
-                <td>@item.Text</td>
-            </tr>
-            @*<tr>
-            <th scope="row">Email: </th>
-            <td>@Model.Login</td>
-        </tr>*@
+           
 
         </tbody>
     </table>
