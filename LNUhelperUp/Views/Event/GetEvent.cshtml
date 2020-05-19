@@ -1,0 +1,24 @@
+﻿@model LNUhelperUp.DTOs.FacultyDTO
+@{
+    ViewData["Title"] = "ShowFaculty";
+}
+
+<div class="container-fluid profile-margin">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+            <p>@Model.Name</p>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+            <input style="margin-bottom: 15px; width: 200px" type="button" value="Редагувати" onclick="window.location.href='@Url.Action("EditProfile", "Profile" )';" />
+            <input style="margin-bottom: 15px; width: 200px" type="button" value="Мої події" onclick="window.location.href='@Url.Action("MyEvents", "Profile" )';" />
+            <input style="width: 200px" type="button" value="Мої обговорення" onclick="window.location.href='@Url.Action("MyDiscussions", "Profile" )';" />
+        </div>
+    </div>
+
+</div>
+

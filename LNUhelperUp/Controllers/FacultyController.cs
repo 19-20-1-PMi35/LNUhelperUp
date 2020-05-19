@@ -14,7 +14,6 @@ using Microsoft.Extensions.Logging;
 namespace LNUhelperUp.Controllers
 {
     [Controller]
-    // [Route("api/[controller]")]
     public class FacultyController : Controller
     {
         private readonly IMapper _mapper;
@@ -82,7 +81,6 @@ namespace LNUhelperUp.Controllers
         }
 
 
-        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFaculty(int id)
         {
             var facultyDb = await _facultyService.GetFacultyAsync(id);
@@ -94,7 +92,7 @@ namespace LNUhelperUp.Controllers
 
             await _facultyService.DeleteFacultyAsync(facultyDb);
 
-            return Ok();
+            return View();
         }
 
         [HttpGet]
