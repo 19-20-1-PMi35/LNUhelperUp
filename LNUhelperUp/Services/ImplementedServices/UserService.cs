@@ -79,7 +79,7 @@ namespace LNUhelperUp.Services.ImplementedServices
             return user;
         }
 
-        public async Task UpdateAsync(string login, EditViewModel model)
+        public async Task UpdateAsync(string login, EditProfileViewModel model)
         {
             var user = await _unitOfWork.UserRepository.SingleOrDefaultAsync(u => u.Login == login);
 

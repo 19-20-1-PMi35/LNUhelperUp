@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LNUhelperUp.Models.ViewModels
 {
-    public class EditViewModel
+    public class EditProfileViewModel
     {
         [Required(ErrorMessage = "Empty Nickname")]
         public string Nickname { get; set; }

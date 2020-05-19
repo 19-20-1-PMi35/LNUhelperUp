@@ -71,7 +71,7 @@ namespace LNUhelperUp.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> EditProfile(EditViewModel model)
+        public async Task<IActionResult> EditProfile(EditProfileViewModel model)
         {
             if (ModelState.IsValid)
             {
