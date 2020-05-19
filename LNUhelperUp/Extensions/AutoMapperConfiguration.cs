@@ -20,6 +20,7 @@ namespace LNUhelperUp.Extensions
                 c.CreateMap<User, UserDTO>().ReverseMap();
                 c.CreateMap<RegistrationViewModel, User>();
                 c.CreateMap<EditViewModel, User>();
+                c.CreateMap<EditPhotoViewModel, User>();
                 c.CreateMap<Image, ImageDTO>().ReverseMap();
                 c.CreateMap<Faculty, FacultyDTO>().ReverseMap();
                 c.CreateMap<Event, EventDTO>().ReverseMap();
