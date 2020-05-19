@@ -47,6 +47,20 @@ namespace LNUhelperUp.Controllers
             return RedirectToAction("Login", "Auth");
         }
 
+        public IActionResult WriteFacultyIdToCookie(int id)
+        {
+            if (HttpContext.Request.Cookies.ContainsKey("facultyId"))
+            {
+                HttpContext.Response.Cookies.Delete("facultyId");
+                HttpContext.Response.Cookies.Append("facultyId", id.ToString());
+            }
+            else
+            {
+                HttpContext.Response.Cookies.Append("facultyId", id.ToString());
+            }
+
+            return RedirectToAction("GetAllEvent", "Event");
+        }
         public async Task<IActionResult> GetFaculty(int id)
         {
             var faculty = await _facultyService.GetFacultyAsync(id);
