@@ -17,6 +17,8 @@ namespace LNUhelperUp.DTOs
         public string Place { get; set; }
         public int UserId { get; set; }
         public int FacultyId { get; set; }
+        public int ImageId { get; set; }
+        public string ImagePath { get; set; }
         public bool IsOfficial { get; set; }
 
     }
