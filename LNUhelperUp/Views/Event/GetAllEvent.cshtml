@@ -5,8 +5,22 @@
 }
 <html>
 <head>
-    <h1>Всі Івенти</h1>
+    <h1>Всі Events</h1>
 </head>
+<body>
+    <table>
+        <tr>
+            <td>Name</td>
+            <td></td>
+        </tr>
+        @foreach(var ev in Model)
+        {
+            <tr>
+                <td>@ev.Name</td>
+            </tr>
+        }
+    </table>
+</body>
 </html>
 
 

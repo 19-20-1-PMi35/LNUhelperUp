@@ -14,7 +14,6 @@ using Microsoft.Extensions.Logging;
 namespace LNUhelperUp.Controllers
 {
     [Controller]
-    [Route("api/[controller]")]
     public class EventController : Controller
     {
         private readonly IMapper _mapper;
@@ -31,7 +30,6 @@ namespace LNUhelperUp.Controllers
             _hostingEnvironment = hostingEnvironment;
         }
 
-        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEvent(int id)
         {
             var eventDb = await _eventService.GetEventAsync(id);
@@ -43,10 +41,10 @@ namespace LNUhelperUp.Controllers
 
             await _eventService.DeleteEventAsync(eventDb);
 
-            return Ok();
+            return View();
         }
 
-        [HttpPut("{id}")]
+        [HttpPost]
         public async Task<IActionResult> UpdateEvent(EventDTO _eventDTO)
         {
             if (!ModelState.IsValid)
@@ -66,6 +64,8 @@ namespace LNUhelperUp.Controllers
             }
 
         }
+
+        [HttpGet]
         public async Task<IActionResult> UpdateFaculty(int id)
         {
             var _event = await _eventService.GetEventAsync(id);
@@ -91,7 +91,6 @@ namespace LNUhelperUp.Controllers
             return RedirectToAction("Login", "Auth");
         }
 
-        [HttpGet("{id}")]
         public async Task<IActionResult> GetEvent(int id)
         {
             var _event = await _eventService.GetEventAsync(id);
@@ -101,10 +100,16 @@ namespace LNUhelperUp.Controllers
                 return NotFound();
             }
 
-            return Ok(_event);
+            return View(_event);
         }
 
-        [HttpPost("{id}")]
+        [HttpGet]
+        public IActionResult CreateEvent()
+        {
+            return View();
+        }
+
+        [HttpPost]
         public async Task<IActionResult> CreateEvent(EventDTO _eventDTO)
         { 
             var _event = _mapper.Map<Event>(_eventDTO);
@@ -116,7 +121,7 @@ namespace LNUhelperUp.Controllers
                 return BadRequest(new { message = "Event is already exist" });
             }
 
-            return Ok();
+            return View();
         }
     }
 }
