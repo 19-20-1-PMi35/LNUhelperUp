@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LNUhelperUp.DTOs;
 using LNUhelperUp.Models;
 using LNUhelperUp.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
@@ -11,18 +12,16 @@ using Microsoft.Extensions.Logging;
 
 namespace LNUhelperUp.Controllers
 {
-    [Controller]
-    [Route("api/[controller]")]
     public class AnnouncementController : Controller
     {
         private readonly ILogger<AnnouncementController> _logger;
         private readonly IHostingEnvironment _hostingEnvironment;
-        private readonly IAnnouncementService _announcementService;
+        private readonly IEventService _eventService;
 
 
-        public AnnouncementController(IAnnouncementService announcementService, ILogger<AnnouncementController> logger, IHostingEnvironment hostingEnvironment)
+        public AnnouncementController(IEventService eventService, ILogger<AnnouncementController> logger, IHostingEnvironment hostingEnvironment)
         {
-            _announcementService = announcementService;
+            _eventService = eventService;
             _logger = logger;
             _hostingEnvironment = hostingEnvironment;
         }
@@ -30,27 +29,27 @@ namespace LNUhelperUp.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAnnouncement(int id)
         {
-            var announcementDb = await _announcementService.GetAnnouncementAsync(id);
+            var announcementDb = await _eventService.GetEventAsync(id);
 
             if (announcementDb == null)
             {
                 return NotFound();
             }
 
-            await _announcementService.DeleteAnnouncementAsync(announcementDb);
+            await _eventService.DeleteEventAsync(announcementDb);
 
             return Ok();
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAnnouncement(Announcement announcement)
+        public async Task<IActionResult> UpdateAnnouncement(EventDTO _eventDTO)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            var announcementUpdated = await _announcementService.UpdateAnnouncementAsync(announcement);
+            var announcementUpdated = await _eventService.UpdateEventAsync(_eventDTO);
 
             if (announcementUpdated == null)
             {
@@ -66,22 +65,22 @@ namespace LNUhelperUp.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var announcements = await _announcementService.GetAllAnnouncementAsync();
-                var name = User.Identity.Name;
-                /*if (announcements == null)
+                var events = await _eventService.GetAllEventAsync();
+               
+                if (events == null)
                 {
-                    return NoContent();
-                }*/
+                    return View();
+                }
 
-                return View(announcements);
+                return View(events);
             }
             return RedirectToAction("Login", "Auth");
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
         public async Task<IActionResult> GetAnnouncement(int id)
         {
-            var announcement = await _announcementService.GetAnnouncementAsync(id);
+            var announcement = await _eventService.GetEventAsync(id);
 
             if (announcement == null)
             {
@@ -91,17 +90,17 @@ namespace LNUhelperUp.Controllers
             return Ok(announcement);
         }
 
-        [HttpPost("{id}")]
-        public async Task<IActionResult> CreateAnnouncement(Announcement announcement)
+        [HttpGet]
+        public IActionResult CreateAnnouncement()
         {
-            var announcementNew = await _announcementService.CreateAnnouncementAsync(announcement);
+            //var announcementNew = await _announcementService.CreateAnnouncementAsync(announcement);
 
-            if (announcementNew == null)
-            {
-                return BadRequest(new { message = "Announcement is already exist" });
-            }
+            //if (announcementNew == null)
+            //{
+            //    return BadRequest(new { message = "Announcement is already exist" });
+            //}
 
-            return Ok();
+            return View();
         }
     }
 }

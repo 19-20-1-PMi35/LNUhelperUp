@@ -40,6 +40,11 @@ namespace LNUhelperUp.Services.ImplementedServices
         {
             var events = await _unitOfWork.EventRepository.GetAllAsync();
             var eventsDTO = events.Select(_mapper.Map<Event, EventDTO>);
+            foreach (var item in eventsDTO)
+            {
+                var image = await _unitOfWork.ImageRepository.GetAsync(item.ImageId);
+                item.ImagePath = image.Path;
+            }
 
             return eventsDTO.Count() > 0 ? eventsDTO : null;
         }

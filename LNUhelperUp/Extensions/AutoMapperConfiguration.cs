@@ -24,6 +24,7 @@ namespace LNUhelperUp.Extensions
                 c.CreateMap<Image, ImageDTO>().ReverseMap();
                 c.CreateMap<Faculty, FacultyDTO>().ReverseMap();
                 c.CreateMap<Event, EventDTO>().ReverseMap();
+                c.CreateMap<Event, EventDTO>().ReverseMap();
                 c.CreateMap<Announcement, AnnouncementDTO>().ReverseMap();
 
             }).CreateMapper());
