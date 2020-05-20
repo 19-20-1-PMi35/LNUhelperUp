@@ -3,7 +3,7 @@
     ViewData["Title"] = "CreateAnnouncement";
 }
 @Html.ValidationSummary(true)
-<h1>CreateAnnouncement</h1>
+<h1>Додати оголошення</h1>
 
 <form asp-action="CreateAnnouncement" asp-controller="Announcement" method="post" enctype="multipart/form-data" style="margin-top:20px;">
     <div class="validation" asp-validation-summary="ModelOnly" />
@@ -21,16 +21,18 @@
             @Html.ValidationMessageFor(model => model.Text)
         </div>
     </div>
-    <div class="form-group row">
-        <label asp-for="Photo" class="coll-md-2 col-form-label">Додати фото: </label>
-        <div class="coll-sm-10">
+   
+        <div class="form-inline">
+        <label asp-for="Photo" >Додати фото: </label><br />
+        <div class="col-auto">
             <div class="custom-file">
-                <input asp-for="Photo" class="form-control custom-file-input" /><br>
+                <input asp-for="Photo" class="form-control custom-file-input" /><br />
                 <label class="custom-file-label">Виберіто фото</label>
                 @Html.ValidationMessageFor(model => model.Photo)
             </div>
         </div>
-    </div>
+        </div>
+  
 
     <div class="row justify-content-center" align:center style="margin-top:35px;">
 
