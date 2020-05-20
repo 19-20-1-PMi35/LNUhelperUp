@@ -1,0 +1,27 @@
+﻿@model IEnumerable<LNUhelperUp.DTOs.AnnouncementDTO>
+@{
+    ViewData["Title"] = "ShowAnnouncements";
+    var announcements = Model.ToList();
+}
+<html>
+<head>
+    <h1>Всі Announcements</h1>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>Name</td>
+            <td></td>
+        </tr>
+        @foreach (var an in Model)
+        {
+            <tr>
+                <td>@an.Name</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>
+
+
+
