@@ -22,18 +22,13 @@ namespace LNUhelperUp.Controllers
         private readonly IImageService _imageService;
         private readonly IFacultyService _facultyService;
         private readonly ILogger<ProfileController> _logger;
-        private LNUhelperContext _context;
-        private IWebHostEnvironment _appEnvironment;
         private readonly IHostingEnvironment _hostingEnvironment;
 
-        public ProfileController(LNUhelperContext context, IUserService userService, ILogger<ProfileController> logger, 
-            IFacultyService facultyService, IWebHostEnvironment appEnvironment, IHostingEnvironment hostingEnvironment,
-            IImageService imageService)
+        public ProfileController(IUserService userService, ILogger<ProfileController> logger, 
+            IFacultyService facultyService, IHostingEnvironment hostingEnvironment, IImageService imageService)
         {
             _imageService = imageService;
             _hostingEnvironment = hostingEnvironment;
-            _appEnvironment = appEnvironment;
-            _context = context;
             _facultyService = facultyService;
             _userService = userService;
             _logger = logger;
@@ -71,7 +66,7 @@ namespace LNUhelperUp.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> EditProfile(EditViewModel model)
+        public async Task<IActionResult> EditProfile(EditProfileViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -90,16 +85,19 @@ namespace LNUhelperUp.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangePhoto(PhotoViewModel model)
         {
-            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Images");
-            string uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
-            string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-            model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
-            string startPath = "/Images/" + uniqueFileName;
-            var image = await _imageService.CreateAsync(model.Photo.Name, startPath);
-            var user = await _userService.GetUser(User.Identity.Name);
-            var editPhototUser = new EditPhotoViewModel { ImageId = image.Id };
-            await _userService.UpdatePhototAsync(User.Identity.Name, editPhototUser);
-            return RedirectToAction("ShowProfile", "Profile");
+            if (ModelState.IsValid)
+            {
+                string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Images");
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                string startPath = "/Images/" + uniqueFileName;
+                var image = await _imageService.CreateAsync(model.Photo.Name, startPath);
+                var editPhototUser = new EditPhotoViewModel { ImageId = image.Id };
+                await _userService.UpdatePhototAsync(User.Identity.Name, editPhototUser);
+                return RedirectToAction("ShowProfile", "Profile");
+            }
+            return View();
         }
 
 

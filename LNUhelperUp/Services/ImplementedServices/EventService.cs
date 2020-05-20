@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LNUhelperUp.Models.ViewModels;
 
 namespace LNUhelperUp.Services.ImplementedServices
 {
@@ -62,19 +63,23 @@ namespace LNUhelperUp.Services.ImplementedServices
 
             return _mapper.Map<Event, EventDTO>(eventUpdated);
         }
-
-        public async Task<Event> CreateEventAsync(Event _event)
+        public async Task UpdatePhototAsync(int id, EditPhotoViewModel model)
         {
-            var eventDb = await _unitOfWork.EventRepository.SingleOrDefaultAsync(u => u.Id == _event.Id);
-            if (eventDb != null)
-            {
-                return null;
-            }
+            var newEvent = await _unitOfWork.UserRepository.SingleOrDefaultAsync(u => u.Id == id);
 
-            await _unitOfWork.EventRepository.AddAsync(_event);
+
+            _mapper.Map(model, newEvent);
+
+            await _unitOfWork.Complete();
+        }
+        public async Task<Event> CreateEventAsync(EventDTO eventDTO)
+        {
+            var newEvent = _mapper.Map<Event>(eventDTO);
+
+            await _unitOfWork.EventRepository.AddAsync(newEvent);
             await _unitOfWork.Complete();
 
-            return _event;
+            return newEvent;
         }
     }
 }
