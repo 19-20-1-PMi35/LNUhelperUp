@@ -110,6 +110,7 @@ namespace LNUhelperUp.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.Response.Cookies.Delete("facultyId");
             return RedirectToAction("Login", "Auth");
         }
     }
