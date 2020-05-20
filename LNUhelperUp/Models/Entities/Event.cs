@@ -23,8 +23,7 @@ namespace LNUhelperUp.Models
         public User User { get; set; }
         public int FacultyId { get; set; }
         public Faculty Faculty { get; set; }
-        public int ImageId { get; set; }
-        public Image Image { get; set; }
+        public  string ImagePath {get; set;}
 
         public bool IsOfficial { get; set; }
     }

@@ -12,12 +12,10 @@ namespace LNUhelperUp.Models.Entities
         public string Name { get; set; }
         public string Path { get; set; }
 
-        public ICollection<Event> Events { get; set; }
         public ICollection<User> Users { get; set; }
 
         public Image()
         {
-            Events = new Collection<Event>();
             Users = new Collection<User>();
         }
     }
