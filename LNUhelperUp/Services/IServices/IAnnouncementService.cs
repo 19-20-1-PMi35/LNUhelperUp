@@ -1,4 +1,5 @@
-﻿using LNUhelperUp.Models;
+﻿using LNUhelperUp.DTOs;
+using LNUhelperUp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ namespace LNUhelperUp.Services.IServices
     public interface IAnnouncementService
     {
         Task<Announcement> CreateAnnouncementAsync(Announcement announcement);
-        Task<Announcement> GetAnnouncementAsync(int id);
-        Task<IEnumerable<Announcement>> GetAllAnnouncementAsync();
-        Task<Announcement> UpdateAnnouncementAsync(Announcement announcement);
-        Task DeleteAnnouncementAsync(Announcement annoucement);
+        Task<AnnouncementDTO> GetAnnouncementAsync(int id);
+        Task<IEnumerable<AnnouncementDTO>> GetAllAnnouncementAsync();
+        Task<AnnouncementDTO> UpdateAnnouncementAsync(AnnouncementDTO announcementDTO);
+        Task DeleteAnnouncementAsync(AnnouncementDTO annoucementDTO);
     }
 }
