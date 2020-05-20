@@ -1,5 +1,6 @@
 ﻿using LNUhelperUp.DTOs;
 using LNUhelperUp.Models;
+using LNUhelperUp.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,8 @@ namespace LNUhelperUp.Services.IServices
 {
     public interface IEventService
     {
-        Task<Event> CreateEventAsync(Event _event);
+        Task UpdatePhototAsync(int id, EditPhotoViewModel model);
+        Task<Event> CreateEventAsync(EventDTO eventDTO);
         Task<EventDTO> GetEventAsync(int id);
         Task<IEnumerable<EventDTO>> GetAllEventAsync();
         Task<EventDTO> UpdateEventAsync(EventDTO _eventDTO);

@@ -25,7 +25,6 @@ namespace LNUhelperUp.Services.ImplementedServices
         }
         public async Task<UserDTO> CreateUserAsync(RegistrationViewModel registrationModel)
         {
-            registrationModel.ImageId = 1;
             var user = _mapper.Map<User>(registrationModel);
             var existedUser = await _unitOfWork.UserRepository.SingleOrDefaultAsync(u => u.Login == user.Login);
             if (existedUser != null)
@@ -41,7 +40,7 @@ namespace LNUhelperUp.Services.ImplementedServices
         private void ConfigureUserProfile(User user)
         {
             user.RoleId = 2;
-
+            user.ImageId = 1;
             // TODO password hashing
         }
 

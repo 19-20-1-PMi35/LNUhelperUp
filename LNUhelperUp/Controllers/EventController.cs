@@ -112,9 +112,8 @@ namespace LNUhelperUp.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateEvent(EventDTO _eventDTO)
         { 
-            var _event = _mapper.Map<Event>(_eventDTO);
 
-            var eventNew = await _eventService.CreateEventAsync(_event);
+            var eventNew = await _eventService.CreateEventAsync(_eventDTO);
 
             if (eventNew == null)
             {
