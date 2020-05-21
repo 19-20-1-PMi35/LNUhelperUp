@@ -1,42 +1,57 @@
 ﻿@model IEnumerable<LNUhelperUp.DTOs.EventDTO>
 @{
-    ViewData["Title"] = "ShowAnnouncements";
-    var officialEvents = Model.ToList();
+    var officialEvents = Model;
+    var display = true;
+    if (officialEvents == null)
+    {
+        display = false;
+    }
+    else
+    {
+        officialEvents = officialEvents.ToList();
+    }
 }
 
-<form class="form-inline">
-    <h1>Оголошення</h1>
-    <div class="form-group mx-sm-3 mb-2">
-        <button class="btn btn-outline-info btn-sm" type="button" onclick="window.location.href='@Url.Action("CreateAnnouncement", "Announcement" )';">Додати оголошення</button>
-    </div>
 
-</form>
+    <form class="form-inline">
+        <h1>Оголошення</h1>
+        @if (ViewBag.userRole == 1)
+        {
+            <div class="form-group mx-sm-3 mb-2">
+                <button class="btn btn-outline-info btn-sm" type="button" onclick="window.location.href='@Url.Action("CreateAnnouncement", "Announcement")';">Додати оголошення</button>
+            </div>
+        }
+    </form>
 
 
-@foreach (var item in officialEvents)
+
+@if (display)
 {
-    if (item.IsOfficial == true)
+    @foreach (var item in officialEvents)
     {
-        <table style="margin-top:20px; margin-bottom:100px;" class="table-sm">
-            <tbody>
-                <tr>
+        if (item.IsOfficial == true && item.FacultyId == ViewBag.facultyId)
+        {
+            <table style="margin-top:20px; margin-bottom:100px;" class="table-sm">
+                <tbody>
+                    <tr>
 
-                    <th scope="row">Дата: @item.Time.ToString("dd MMM yyyy")</th>
-                    <td></td>
+                        <th scope="row">Дата: @item.Time.ToString("dd MMM yyyy")</th>
+                        <td></td>
 
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
 
-                    <td align="center"><h4>@item.Name</h4></td>
-                    <td rowspan="3"><img src="@item.ImagePath" alt="Announcement picture" height="250" width="250" style="padding-left:50px;" /></td>
-                </tr>
-                <tr>
-                    <td align="justify">@item.Text</td>
-                </tr>
+                        <td align="center"><h4>@item.Name</h4></td>
+                        <td rowspan="3"><img src="@item.ImagePath" alt="Announcement picture" height="250" width="250" style="padding-left:50px;" /></td>
+                    </tr>
+                    <tr>
+                        <td align="justify">@item.Text</td>
+                    </tr>
 
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        }
+
     }
-
 }

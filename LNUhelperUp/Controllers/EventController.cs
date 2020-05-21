@@ -84,14 +84,22 @@ namespace LNUhelperUp.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var events = await _eventService.GetAllEventAsync();
-                
-                if (events == null)
+                if (HttpContext.Request.Cookies.ContainsKey("facultyId"))
                 {
-                    return NoContent();
-                }
+                    var events = await _eventService.GetAllEventAsync();
 
-                return View(events);
+                    if (events == null)
+                    {
+                        return View();
+                    }
+                    ViewBag.facultyId = Int32.Parse(HttpContext.Request.Cookies["facultyId"]);
+                    ViewBag.userRole = Int32.Parse(HttpContext.Request.Cookies["userRole"]);
+                    return View(events);
+                }
+                else
+                {
+                    return RedirectToAction("GetAllFaculty", "Faculty");
+                }
             }
             return RedirectToAction("Login", "Auth");
         }
@@ -135,8 +143,6 @@ namespace LNUhelperUp.Controllers
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
                 model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
                 string startPath = "/Images/" + uniqueFileName;
-                var user = await _userService.GetAsyncByEmail(User.Identity.Name);
-                int facultyId = Int32.Parse(HttpContext.Request.Cookies["facultyId"]);
                 var eventDTO = new EventDTO
                 {
                     Name = model.Name,
@@ -146,14 +152,12 @@ namespace LNUhelperUp.Controllers
                     Place = model.Place,
                     CreateAt = DateTime.Now,
                     Time = DateTime.Now,
-                    UserId = user.Id,
-                    FacultyId = facultyId,
+                    UserId = Int32.Parse(HttpContext.Request.Cookies["userId"]),
+                    FacultyId = Int32.Parse(HttpContext.Request.Cookies["facultyId"]),
+                    ImagePath = startPath,
                     IsOfficial = false
                 };
                 var newEvent = await _eventService.CreateEventAsync(eventDTO);
-                var image = await _imageService.CreateAsync(model.Photo.Name, startPath);
-                var editPhotoEvent = new EditPhotoViewModel { ImageId = image.Id };
-                await _eventService.UpdatePhototAsync(newEvent.Id, editPhotoEvent);
                 return RedirectToAction("GetAllEvent", "Event");
             }
             return View(model);
