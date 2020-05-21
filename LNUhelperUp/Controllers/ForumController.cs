@@ -75,7 +75,7 @@ namespace LNUhelperUp.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> GetAllAnnouncement()
+        public async Task<IActionResult> GetAllQuestions()
         {
             if (User.Identity.IsAuthenticated)
             {
