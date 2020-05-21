@@ -32,17 +32,16 @@ namespace LNUhelperUp.Controllers
             _userService = userService;
         }
 
-        [HttpDelete]
         public async Task<IActionResult> DeleteAnnouncement(int id)
         {
-            var announcementDb = await _eventService.GetEventAsync(id);
+            var eventDb = await _eventService.GetEventAsync(id);
 
-            if (announcementDb == null)
+            if (eventDb == null)
             {
                 return NotFound();
             }
 
-            await _eventService.DeleteEventAsync(announcementDb);
+            await _eventService.DeleteEventAsync(eventDb);
 
             return RedirectToAction("GetAllAnnouncement", "Announcement");
         }
