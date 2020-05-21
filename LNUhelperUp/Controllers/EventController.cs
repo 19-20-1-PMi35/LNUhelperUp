@@ -94,6 +94,7 @@ namespace LNUhelperUp.Controllers
                     }
                     ViewBag.facultyId = Int32.Parse(HttpContext.Request.Cookies["facultyId"]);
                     ViewBag.userRole = Int32.Parse(HttpContext.Request.Cookies["userRole"]);
+                    ViewBag.userId = Int32.Parse(HttpContext.Request.Cookies["userId"]);
                     return View(events);
                 }
                 else
