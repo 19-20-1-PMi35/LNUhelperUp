@@ -31,22 +31,45 @@
                 <tr>
 
                     <th scope="row">Дата: @item.Time.ToString("dd MMM yyyy")</th>
+                    
+                    
+                    
+                </tr>
+                <tr>
                     <th scope="row">Ціна: @item.Price</th>
+                   
+                </tr>                
+                <tr>
                     <th scope="row">Кількість: @item.ParticipantAmount</th>
+                    
+                </tr>
+                <tr>                 
                     <th scope="row">Місце проведення: @item.Place</th>
-                    <td></td>
+                   
+                </tr>                 
+
+                
+                <tr>
+                    <td>
+                        <form class="form-inline justify-content-center" align="center">
+                            <h4>@item.Name</h4>
+                            <div class="form-group">
+
+                                @if (ViewBag.userRole == 1 || ViewBag.userId == item.UserId)
+                                {
+                                    <button style="margin-left:20px;" class="btn btn-danger btn-sm" type="button" onclick="window.location.href='@Url.Action("GetAllAnnouncement", "Announcement")';">Видалити</button>
+                                }
+                            </div>
+                        </form>
+                    </td>
+                    <td rowspan="3"><img src="@item.ImagePath" alt="Announcement picture" height="250" width="250" style="padding-left:50px;" /></td>
+
 
                 </tr>
-                <tr>
-                    @if (ViewBag.userRole == 1 || ViewBag.userId == item.UserId)
-                    {
-                        <button class="btn btn-danger btn-sm" type="button" onclick="window.location.href='@Url.Action("GetAllAnnouncement", "Announcement")';">Видалити</button>
-                    }
-                    <td align="center"><h4>@item.Name</h4></td>
-                    <td rowspan="3"><img src="@item.ImagePath" alt="Announcement picture" height="250" width="250" style="padding-left:50px;" /></td>
-                </tr>
+
                 <tr>
                     <td align="justify">@item.Text</td>
+                    
                 </tr>
 
 

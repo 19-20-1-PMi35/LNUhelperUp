@@ -48,9 +48,9 @@
             @Html.ValidationMessageFor(model => model.Time)
         </div>
     </div>
-    <div class="form-group row">
-        <label asp-for="Photo" class="coll-md-2 col-form-label">Додати фото: </label>
-        <div class="coll-sm-10">
+    <div class="form-inline">
+        <label asp-for="Photo" >Додати фото: </label>
+        <div class="col-auto">
             <div class="custom-file">
                 <input asp-for="Photo" class="form-control custom-file-input" /><br>
                 <label class="custom-file-label">Виберіто фото</label>
