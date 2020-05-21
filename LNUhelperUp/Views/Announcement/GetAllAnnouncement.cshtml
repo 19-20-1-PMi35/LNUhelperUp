@@ -12,20 +12,24 @@
     }
 }
 
-<form class="form-inline">
-    <h1>Оголошення</h1>
-    <div class="form-group mx-sm-3 mb-2">
-        <button class="btn btn-outline-info btn-sm" type="button" onclick="window.location.href='@Url.Action("CreateAnnouncement", "Announcement" )';">Додати оголошення</button>
-    </div>
 
-</form>
+    <form class="form-inline">
+        <h1>Оголошення</h1>
+        @if (ViewBag.userRole == 1)
+        {
+            <div class="form-group mx-sm-3 mb-2">
+                <button class="btn btn-outline-info btn-sm" type="button" onclick="window.location.href='@Url.Action("CreateAnnouncement", "Announcement")';">Додати оголошення</button>
+            </div>
+        }
+    </form>
+
 
 
 @if (display)
 {
     @foreach (var item in officialEvents)
     {
-        if (item.IsOfficial == true)
+        if (item.IsOfficial == true && item.FacultyId == ViewBag.facultyId)
         {
             <table style="margin-top:20px; margin-bottom:100px;" class="table-sm">
                 <tbody>

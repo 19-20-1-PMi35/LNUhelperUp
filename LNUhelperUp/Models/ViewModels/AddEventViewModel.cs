@@ -14,7 +14,8 @@ namespace LNUhelperUp.Models.ViewModels
         [Required(ErrorMessage = "Empty Text")]
         public string Text { get; set; }
         public int? ParticipantAmount { get; set; }
-        public DateTime Time { get; set; }
+        [Required(ErrorMessage = "Вкажіть дату")]
+        public string Time { get; set; }
         public double? Price { get; set; }
         public string? Place { get; set; }
         [Required(ErrorMessage = "Виберіто фото")]

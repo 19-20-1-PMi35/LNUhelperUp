@@ -71,14 +71,22 @@ namespace LNUhelperUp.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var events = await _eventService.GetAllEventAsync();
-               
-                if (events == null)
+                if (HttpContext.Request.Cookies.ContainsKey("facultyId"))
                 {
-                    return View();
-                }
+                    var events = await _eventService.GetAllEventAsync();
 
-                return View(events);
+                    if (events == null)
+                    {
+                        return View();
+                    }
+                    ViewBag.facultyId = Int32.Parse(HttpContext.Request.Cookies["facultyId"]);
+                    ViewBag.userRole = Int32.Parse(HttpContext.Request.Cookies["userRole"]);
+                    return View(events);
+                }
+                else
+                {
+                    return RedirectToAction("GetAllFaculty", "Faculty");
+                }
             }
             return RedirectToAction("Login", "Auth");
         }
@@ -102,7 +110,7 @@ namespace LNUhelperUp.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> CreateAnnouncement(AddEventViewModel model)
+        public async Task<IActionResult> CreateAnnouncement(AddOffEventViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -111,16 +119,14 @@ namespace LNUhelperUp.Controllers
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
                 model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
                 string startPath = "/Images/" + uniqueFileName;
-                var user = await _userService.GetAsyncByEmail(User.Identity.Name);
-                int facultyId = Int32.Parse(HttpContext.Request.Cookies["facultyId"]);
                 var eventDTO = new EventDTO
                 {
                     Name = model.Name,
                     Text = model.Text,
                     CreateAt = DateTime.Now,
-                    Time = DateTime.Now,
-                    UserId = user.Id,
-                    FacultyId = facultyId,
+                    Time = Convert.ToDateTime(model.Time),
+                    UserId = Int32.Parse(HttpContext.Request.Cookies["userId"]),
+                    FacultyId = Int32.Parse(HttpContext.Request.Cookies["facultyId"]),
                     ImagePath = startPath,
                     IsOfficial = true
                 };

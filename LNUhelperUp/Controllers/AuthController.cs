@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using LNUhelperUp.DTOs;
 using LNUhelperUp.Models.ViewModels;
 using LNUhelperUp.Services.IServices;
 using Microsoft.AspNetCore.Authentication;
@@ -59,6 +60,7 @@ namespace LNUhelperUp.Controllers
                 if (user != null)
                 {
                     await Authenticate(model.Login);
+                    AddToCookies(user);
 
                     return RedirectToAction("GetAllFaculty", "Faculty");
                 }
@@ -86,6 +88,7 @@ namespace LNUhelperUp.Controllers
                 if (user != null)
                 {
                     await Authenticate(model.Login);
+                    AddToCookies(user);
 
                     return RedirectToAction("GetAllFaculty", "Faculty");
                 }
@@ -106,11 +109,34 @@ namespace LNUhelperUp.Controllers
             // установка аутентификационных куки
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
+        private void AddToCookies(UserDTO user)
+        {
+            if (HttpContext.Request.Cookies.ContainsKey("userId"))
+            {
+                HttpContext.Response.Cookies.Delete("userId");
+                HttpContext.Response.Cookies.Append("userId", user.Id.ToString());
+            }
+            else
+            {
+                HttpContext.Response.Cookies.Append("userId", user.Id.ToString());
+            }
+            if (HttpContext.Request.Cookies.ContainsKey("userRole"))
+            {
+                HttpContext.Response.Cookies.Delete("userRole");
+                HttpContext.Response.Cookies.Append("userRole", user.RoleId.ToString());
+            }
+            else
+            {
+                HttpContext.Response.Cookies.Append("userRole", user.RoleId.ToString());
+            }
+        }
 
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             HttpContext.Response.Cookies.Delete("facultyId");
+            HttpContext.Response.Cookies.Delete("userId");
+            HttpContext.Response.Cookies.Delete("userRole");
             return RedirectToAction("Login", "Auth");
         }
     }

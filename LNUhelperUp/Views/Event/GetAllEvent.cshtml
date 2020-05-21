@@ -24,7 +24,7 @@
 {
     @foreach (var item in events)
     {
-        @if (item.IsOfficial == false)
+        @if (item.IsOfficial == false && item.FacultyId == ViewBag.facultyId)
         {
         <table style="margin-top:20px; margin-bottom:100px;" class="table-sm">
             <tbody>
