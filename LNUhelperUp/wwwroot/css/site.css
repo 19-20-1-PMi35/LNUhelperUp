@@ -101,12 +101,20 @@ body {
     display: none;
 }
 
-#fac_a {
+.fac_a {
     font-size: 20px;
     color: black;
     font-style: normal;
     text-decoration: none;
 }
+
+    .fac_a:hover {
+        font-size: 20px;
+        color: black;
+        font-style: normal;
+        text-decoration: none;
+    
+    }
 
 .my-row {
     margin-top: 65px;
@@ -125,6 +133,12 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
+}
+
+#my-col:hover {
+    background-color: #e67b7a;
+    opacity: 0.6;
+    transition: 0.5s;
 }
 
 h1 {

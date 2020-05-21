@@ -41,14 +41,24 @@
                     </tr>
                     <tr>
 
-                        @if (ViewBag.userRole == 1)
-                        {
-                            // <button class="btn btn-danger btn-sm" type="button" onclick="window.location.href='@Url.Action("GetAllAnnouncement", "Announcement")';">Видалити</button>
-                            <div class="col my-col"><a href="/Event/DeleteAnnouncement/@item.Id">Видалити</a></div>
 
-                        }
 
-                        <td align="center"><h4>@item.Name</h4></td>
+
+
+                        <td>
+                            <form class="form-inline justify-content-center"  align="center">
+                                <h4>@item.Name</h4>
+                                <div class="form-group">
+
+                                    @if (ViewBag.userRole == 1)
+                                    {
+                                        // <button style="margin-left:20px;" class="btn btn-danger btn-sm" type="button" onclick="window.location.href='@Url.Action("GetAllAnnouncement", "Announcement")';">Видалити</button>
+                                        <div class="col" id="my-col" style="margin-left:20px;"><a href="/Event/DeleteAnnouncement/@item.Id">Видалити</a></div>
+                                    }
+                                </div>
+                            </form>
+                        </td>
+                       
                         <td rowspan="3"><img src="@item.ImagePath" alt="Announcement picture" height="250" width="250" style="padding-left:50px;" /></td>
                     </tr>
                     <tr>
