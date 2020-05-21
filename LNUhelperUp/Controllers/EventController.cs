@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using LNUhelperUp.Models.ViewModels;
 
 namespace LNUhelperUp.Controllers
 {
@@ -20,14 +22,17 @@ namespace LNUhelperUp.Controllers
         private readonly ILogger<EventController> _logger;
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly IEventService _eventService;
+        private readonly IImageService _imageService;
+        private readonly IUserService _userService;
 
-
-        public EventController(IMapper mapper, IEventService eventService, ILogger<EventController> logger, IHostingEnvironment hostingEnvironment)
+        public EventController(IMapper mapper, IEventService eventService, ILogger<EventController> logger, IHostingEnvironment hostingEnvironment, IImageService imageService, IUserService userService)
         {
             _mapper = mapper;
             _eventService = eventService;
             _logger = logger;
             _hostingEnvironment = hostingEnvironment;
+            _imageService = imageService;
+            _userService = userService;
         }
 
         public async Task<IActionResult> DeleteEvent(int id)
@@ -110,9 +115,8 @@ namespace LNUhelperUp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateEvent(EventDTO _eventDTO)
-        { 
-
+        /*public async Task<IActionResult> CreateEvent(EventDTO _eventDTO)
+        {
             var eventNew = await _eventService.CreateEventAsync(_eventDTO);
 
             if (eventNew == null)
@@ -121,6 +125,39 @@ namespace LNUhelperUp.Controllers
             }
 
             return View();
+        }*/
+        public async Task<IActionResult> CreateEvent(AddEventViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Images");
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                string startPath = "/Images/" + uniqueFileName;
+                var user = await _userService.GetAsyncByEmail(User.Identity.Name);
+                int facultyId = Int32.Parse(HttpContext.Request.Cookies["facultyId"]);
+                var eventDTO = new EventDTO
+                {
+                    Name = model.Name,
+                    Text = model.Text,
+                    Price = Convert.ToDouble(model.Price),
+                    ParticipantAmount = model.ParticipantAmount,
+                    Place = model.Place,
+                    CreateAt = DateTime.Now,
+                    Time = DateTime.Now,
+                    UserId = user.Id,
+                    FacultyId = facultyId,
+                    IsOfficial = false
+                };
+                var newEvent = await _eventService.CreateEventAsync(eventDTO);
+                var image = await _imageService.CreateAsync(model.Photo.Name, startPath);
+                var editPhotoEvent = new EditPhotoViewModel { ImageId = image.Id };
+                await _eventService.UpdatePhototAsync(newEvent.Id, editPhotoEvent);
+                return RedirectToAction("GetAllEvent", "Event");
+            }
+            return View(model);
         }
     }
+    
 }
