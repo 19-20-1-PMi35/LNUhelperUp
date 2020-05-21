@@ -44,7 +44,7 @@ namespace LNUhelperUp.Controllers
 
             await _eventService.DeleteEventAsync(announcementDb);
 
-            return Ok();
+            return RedirectToAction("GetAllAnnouncement", "Announcement");
         }
 
         [HttpPut]

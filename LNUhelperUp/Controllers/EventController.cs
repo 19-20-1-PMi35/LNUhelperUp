@@ -46,7 +46,7 @@ namespace LNUhelperUp.Controllers
 
             await _eventService.DeleteEventAsync(eventDb);
 
-            return View();
+            return RedirectToAction("GetAllEvent", "Event");
         }
 
         [HttpPost]
