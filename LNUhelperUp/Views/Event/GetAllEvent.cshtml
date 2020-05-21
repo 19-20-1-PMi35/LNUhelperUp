@@ -59,7 +59,13 @@
                                 @if (ViewBag.userRole == 1 || ViewBag.userId == item.UserId)
                                 {
                                     //<button style="margin-left:20px;" class="btn btn-danger btn-sm" type="button" onclick="window.location.href='@Url.Action("GetAllAnnouncement", "Announcement")';">Видалити</button>
-                                    <div class="col" id="my-col" style="margin-left:20px;"><a href="/Event/DeleteEvent/@item.Id">Видалити</a></div>
+                                    //<div class="col" id="my-col" style="margin-left:20px;"><a href="/Event/DeleteEvent/@item.Id">Видалити</a></div>
+                                    @Html.ActionLink(
+                                         "Видалити",
+                                         "DeleteEvent",                         // controller action
+                                         "Event",        // controller
+                                         new { item.Id },         // action parameters aka route values
+                                         new { @class = "btn btn-danger" })// html attributes*/
                                 }
                             </div>
                         </form>
