@@ -1,7 +1,15 @@
 ﻿@model IEnumerable<LNUhelperUp.DTOs.EventDTO>
 @{
-    ViewData["Title"] = "ShowAnnouncements";
-    var officialEvents = Model.ToList();
+    var officialEvents = Model;
+    var display = true;
+    if (officialEvents == null)
+    {
+        display = false;
+    }
+    else
+    {
+        officialEvents = officialEvents.ToList();
+    }
 }
 
 <form class="form-inline">
@@ -13,30 +21,33 @@
 </form>
 
 
-@foreach (var item in officialEvents)
+@if (display)
 {
-    if (item.IsOfficial == true)
+    @foreach (var item in officialEvents)
     {
-        <table style="margin-top:20px; margin-bottom:100px;" class="table-sm">
-            <tbody>
-                <tr>
+        if (item.IsOfficial == true)
+        {
+            <table style="margin-top:20px; margin-bottom:100px;" class="table-sm">
+                <tbody>
+                    <tr>
 
-                    <th scope="row">Дата: @item.Time.ToString("dd MMM yyyy")</th>
-                    <td></td>
+                        <th scope="row">Дата: @item.Time.ToString("dd MMM yyyy")</th>
+                        <td></td>
 
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
 
-                    <td align="center"><h4>@item.Name</h4></td>
-                    <td rowspan="3"><img src="@item.ImagePath" alt="Announcement picture" height="250" width="250" style="padding-left:50px;" /></td>
-                </tr>
-                <tr>
-                    <td align="justify">@item.Text</td>
-                </tr>
+                        <td align="center"><h4>@item.Name</h4></td>
+                        <td rowspan="3"><img src="@item.ImagePath" alt="Announcement picture" height="250" width="250" style="padding-left:50px;" /></td>
+                    </tr>
+                    <tr>
+                        <td align="justify">@item.Text</td>
+                    </tr>
 
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        }
+
     }
-
 }

@@ -147,13 +147,11 @@ namespace LNUhelperUp.Controllers
                     CreateAt = DateTime.Now,
                     Time = DateTime.Now,
                     UserId = user.Id,
+                    ImagePath = startPath,
                     FacultyId = facultyId,
                     IsOfficial = false
                 };
                 var newEvent = await _eventService.CreateEventAsync(eventDTO);
-                var image = await _imageService.CreateAsync(model.Photo.Name, startPath);
-                var editPhotoEvent = new EditPhotoViewModel { ImageId = image.Id };
-                await _eventService.UpdatePhototAsync(newEvent.Id, editPhotoEvent);
                 return RedirectToAction("GetAllEvent", "Event");
             }
             return View(model);

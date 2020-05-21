@@ -121,12 +121,10 @@ namespace LNUhelperUp.Controllers
                     Time = DateTime.Now,
                     UserId = user.Id,
                     FacultyId = facultyId,
+                    ImagePath = startPath,
                     IsOfficial = true
                 };
                 var newEvent = await _eventService.CreateEventAsync(eventDTO);
-                var image = await _imageService.CreateAsync(model.Photo.Name, startPath);
-                var editPhotoEvent = new EditPhotoViewModel { ImageId = image.Id };
-                await _eventService.UpdatePhototAsync(newEvent.Id, editPhotoEvent);
                 return RedirectToAction("GetAllAnnouncement", "Announcement");
             }
             return View(model);

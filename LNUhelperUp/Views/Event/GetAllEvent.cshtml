@@ -1,53 +1,57 @@
 ﻿@model IEnumerable<LNUhelperUp.DTOs.EventDTO>
 @{
-    ViewData["Title"] = "ShowEvents";
-    var events = Model.ToList();
+    var events = Model;
+    var display = true;
+    if (events == null)
+    {
+        display = false;
+    }
+    else
+    {
+        events = events.ToList();
+    }
 }
-<html>
-<head>
-    <form class="form-inline">
-        <h1>Події</h1>
-        <div class="form-group mx-sm-3 mb-2">
-            <button class="btn btn-outline-info btn-sm" type="button" onclick="window.location.href='@Url.Action("CreateEvent", "Event" )';">Додати подію</button>
-        </div>
 
-    </form>
-</head>
-<body>
-    <table>
-        <tr>
-            <td>Name</td>
-            <td></td>
-        </tr>
-        @foreach (var item in events)
+<form class="form-inline">
+    <h1>Події</h1>
+    <div class="form-group mx-sm-3 mb-2">
+        <button class="btn btn-outline-info btn-sm" type="button" onclick="window.location.href='@Url.Action("CreateEvent", "Event" )';">Додати подію</button>
+    </div>
+
+</form>
+
+@if (display)
+{
+    @foreach (var item in events)
+    {
+        @if (item.IsOfficial == false)
         {
-            <table style="margin-top:20px; margin-bottom:100px;" class="table-sm">
-                <tbody>
-                    <tr>
+        <table style="margin-top:20px; margin-bottom:100px;" class="table-sm">
+            <tbody>
+                <tr>
 
-                        <th scope="row">Дата: @item.Time.ToString("dd MMM yyyy")</th>
-                        <th scope="row">Ціна: @item.Price</th>
-                        <th scope="row">Кількість: @item.ParticipantAmount</th>
-                        <th scope="row">Місце проведення: @item.Place</th>
-                        <td></td>
+                    <th scope="row">Дата: @item.Time.ToString("dd MMM yyyy")</th>
+                    <th scope="row">Ціна: @item.Price</th>
+                    <th scope="row">Кількість: @item.ParticipantAmount</th>
+                    <th scope="row">Місце проведення: @item.Place</th>
+                    <td></td>
 
-                    </tr>
-                    <tr>
+                </tr>
+                <tr>
 
-                        <td align="center"><h4>@item.Name</h4></td>
-                        <td rowspan="3"><img src="@item.ImagePath" alt="Announcement picture" height="250" width="250" style="padding-left:50px;" /></td>
-                    </tr>
-                    <tr>
-                        <td align="justify">@item.Text</td>
-                    </tr>
+                    <td align="center"><h4>@item.Name</h4></td>
+                    <td rowspan="3"><img src="@item.ImagePath" alt="Announcement picture" height="250" width="250" style="padding-left:50px;" /></td>
+                </tr>
+                <tr>
+                    <td align="justify">@item.Text</td>
+                </tr>
 
 
-                </tbody>
-            </table>
+            </tbody>
+        </table>
         }
-    </table>
-</body>
-</html>
+    }
+}
 
 
 
